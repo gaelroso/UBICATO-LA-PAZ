@@ -1,0 +1,71 @@
+{
+ "fuente": "https://agenda.lpz.ucb.edu.bo/",
+ "actualizado": "2026-11-12 15:50",
+ "eventos": [
+  {
+   "id": "ag242",
+   "titulo": "TEDxUCB",
+   "tipo": "Formativo",
+   "bloque": "D",
+   "piso": 5,
+   "lugar": "Bloque “D”, 5to. piso, Paraninfo U.C.B. y Capilla San Pablo",
+   "fecha": "2026-11-12",
+   "hasta": "2026-11-12",
+   "hora": "07:15",
+   "organizador": "Facultad de Ciencias Económicas y Financieras",
+   "postergado": false
+  },
+  {
+   "id": "ag245",
+   "titulo": "Tech Mech Hackathon",
+   "tipo": "Formativo",
+   "bloque": "A",
+   "piso": 0,
+   "lugar": "Bloque “A”, Coliseo Multifuncional de la Universidad",
+   "fecha": "2026-11-12",
+   "hasta": "2026-11-12",
+   "hora": "09:00",
+   "organizador": "Carrera de Ingeniería Mecatrónica",
+   "postergado": false
+  },
+  {
+   "id": "ag207",
+   "titulo": "19 Aniversario de la Carrera de Ingeniería Mecatrónica",
+   "tipo": "Sociales",
+   "bloque": "D",
+   "piso": 5,
+   "lugar": "Bloque “D”, 5to. piso, Paraninfo U.C.B.",
+   "fecha": "2026-11-13",
+   "hasta": "2026-11-13",
+   "hora": "18:00",
+   "organizador": "Ingeniería Mecatronica",
+   "postergado": false
+  },
+  {
+   "id": "ag246",
+   "titulo": "Conferencia \"Razón humana y Ciencia espiritual\" por el Dr. Ricardo Castañón Gómez",
+   "tipo": "Formativo",
+   "bloque": "D",
+   "piso": 5,
+   "lugar": "Bloque “D”, 5to. piso, Paraninfo U.C.B. y Capilla San Pablo",
+   "fecha": "2026-11-16",
+   "hasta": "2026-11-16",
+   "hora": "18:30",
+   "organizador": "Gabinete de Comunicación ",
+   "postergado": false
+  },
+  {
+   "id": "ag247",
+   "titulo": "Presentación Musicoterapia y Danza",
+   "tipo": "Cultural",
+   "bloque": "D",
+   "piso": 5,
+   "lugar": "Bloque “D”, 5to. piso, Paraninfo U.C.B.",
+   "fecha": "2026-11-25",
+   "hasta": "2026-11-25",
+   "hora": "16:00",
+   "organizador": "Pastoral de Sede ",
+   "postergado": false
+  }
+ ]
+}

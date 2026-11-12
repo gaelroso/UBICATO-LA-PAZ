@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#00355f">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#00294a">
+<meta name="color-scheme" content="light dark">
+<title>Ubicato UCB · Encuentra tu evento y llega</title>
+<meta name="description" content="Eventos de la UCB La Paz en vivo, la ruta más rápida por el campus y flechas en tu cámara. Gratis y sin instalar nada.">
+<meta property="og:type" content="website"><meta property="og:site_name" content="Ubicato"><meta property="og:title" content="Ubicato · ¿Dónde es el evento?"><meta property="og:description" content="Eventos de la UCB La Paz en vivo, la ruta más rápida por el campus y flechas en tu cámara."><meta property="og:image" content="icon-512.png"><meta name="twitter:card" content="summary">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Ubicato"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2300355f'/%3E%3Cpath d='M16 5a7 7 0 0 0-7 7c0 5 7 14 7 14s7-9 7-14a7 7 0 0 0-7-7z' fill='%23ffcd00'/%3E%3Ccircle cx='16' cy='12' r='2.6' fill='%2300355f'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+/* Marca UCB: azul Pantone 541 y 312, amarillo Pantone 116, gris frío. Layout: encabezado azul con franja cian y amarilla, tarjetas al centro, barra inferior. */
+--bg:#f2f5f9;--surface:#fff;--ink:#0a1f33;--muted:#53565a;--line:#dae2ec;--path:#b7c4d4;
+--navy:#00355f;--blue:#005289;--cyan:#00a9ce;--sun:#ffcd00;
+--brand:#00355f;--on-brand:#fff;--act:#00355f;--on-act:#fff;--route:#ffcd00;--on-route:#00355f;
+--live:#0b8a5f;--soon:#b45309;--next:#005289;--ar-panel:rgba(0,28,50,.8);--ar-ink:#fff;
+--shadow:0 1px 2px rgba(0,40,80,.06),0 10px 28px rgba(0,40,80,.07);
+--f-d:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;--f-b:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+--r:20px;--ease:cubic-bezier(.23,1,.32,1)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;
+--bg:#061320;--surface:#0e2236;--ink:#e8eff6;--muted:#a3b3c4;--line:#1c3550;--path:#36506b;
+--brand:#00294a;--act:#4cc3e3;--on-act:#00203a;--live:#3ecb96;--soon:#f3a44b;--next:#7fb5e6;--shadow:none}}
+:root[data-theme="dark"]{color-scheme:dark;
+--bg:#061320;--surface:#0e2236;--ink:#e8eff6;--muted:#a3b3c4;--line:#1c3550;--path:#36506b;
+--brand:#00294a;--act:#4cc3e3;--on-act:#00203a;--live:#3ecb96;--soon:#f3a44b;--next:#7fb5e6;--shadow:none}
+*{box-sizing:border-box;margin:0}
+[hidden]{display:none!important}
+html,body{height:100%}
+html{-webkit-tap-highlight-color:transparent;-webkit-text-size-adjust:100%;overscroll-behavior:none}
+body{background:var(--bg);color:var(--ink);font:400 16px/1.45 var(--f-b);display:flex;justify-content:center}
+.app{width:100%;max-width:520px;height:100%;display:flex;flex-direction:column;background:var(--bg);position:relative;overflow:hidden}
+@media (min-width:560px){body{background:var(--line)}}
+button,a,summary{touch-action:manipulation;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+button{border:0;background:none;cursor:pointer;font:inherit;color:inherit;padding:0}
+input,select,textarea{font:inherit;font-size:16px;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 12px;width:100%;min-height:48px}
+input[type=checkbox]{width:24px;height:24px;min-height:0;padding:0;accent-color:var(--act);flex:none}
+textarea{font:13px/1.4 ui-monospace,Menlo,Consolas,monospace;min-height:120px}
+label{font:600 12.5px var(--f-d);letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+:focus-visible{outline:3px solid var(--cyan);outline-offset:2px}
+h2{font:800 24px/1.12 var(--f-d);letter-spacing:-.015em;text-wrap:balance}
+.muted{color:var(--muted);font-size:14.5px}.ok{color:var(--live);font-weight:600}.no,.warn{color:var(--soon);font-weight:600}
+.eb{font:700 12px var(--f-d);letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+.row{display:flex;gap:8px;flex-wrap:wrap}.row>*{flex:1 1 150px}
+
+.top{position:relative;background:linear-gradient(165deg,var(--brand),var(--blue));color:var(--on-brand);padding:calc(12px + env(safe-area-inset-top,0px)) 16px 15px;display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center}
+.top::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:linear-gradient(90deg,var(--cyan) 0 62%,var(--sun) 62%)}
+.brand b{display:flex;align-items:center;gap:8px;font:800 28px/1 var(--f-d);letter-spacing:-.02em}
+.brand b svg{width:22px;height:26px;fill:var(--sun);flex:none}
+.brand span{display:block;margin-top:3px;font:600 12px var(--f-d);letter-spacing:.09em;text-transform:uppercase;opacity:.75}
+.tr{display:flex;align-items:center;gap:10px}.logo{height:44px;max-width:120px;object-fit:contain;background:#fff;border-radius:12px;padding:5px 8px}
+.ico{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:rgba(255,255,255,.14);transition:transform .14s var(--ease)}
+.ico:active{transform:scale(.94)}
+.ico svg,.tabs svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.here{grid-column:1/-1;display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.12);box-shadow:inset 0 0 0 1px rgba(255,255,255,.24);color:#fff;border-radius:16px;padding:9px 14px;text-align:left;min-height:52px;transition:transform .14s var(--ease)}
+.here:active{transform:scale(.985)}
+.here span{font:700 11px var(--f-d);text-transform:uppercase;letter-spacing:.1em;flex:none;color:#7fd6ea}
+.here b{flex:1;font:700 18px/1.15 var(--f-d);min-width:0;overflow-wrap:anywhere}
+.here i{font:600 14px var(--f-d);font-style:normal;color:var(--sun);flex:none;text-decoration:underline;text-underline-offset:3px}
+.demo{background:var(--surface);border-bottom:1px solid var(--line);color:var(--muted);font-size:12.5px;padding:6px 16px}
+.demo b{color:var(--soon)}
+
+main{flex:1;min-height:0;position:relative}
+.view{position:absolute;inset:0;overflow-y:auto;overscroll-behavior:contain;padding:18px 16px 28px;display:flex;flex-direction:column;gap:16px}
+.tabs{display:grid;grid-template-columns:repeat(4,1fr);background:var(--surface);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px)}
+.tabs button{position:relative;display:grid;justify-items:center;gap:2px;padding:9px 4px 7px;font:600 12px var(--f-d);letter-spacing:.03em;color:var(--muted);min-height:60px}
+.tabs button[aria-current=page]{color:var(--act)}
+.tabs button[aria-current=page]::before{content:"";position:absolute;top:0;left:32%;right:32%;height:3px;border-radius:0 0 4px 4px;background:var(--sun)}
+.tabs button:active svg{transform:scale(.9)}
+
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;min-height:50px;padding:10px 18px;border-radius:14px;background:var(--route);color:var(--on-route);font:700 16.5px var(--f-d);transition:transform .14s var(--ease),filter .14s;text-align:center}
+.btn:active{transform:scale(.97);filter:brightness(.92)}
+.btn.sec{background:transparent;color:var(--act);box-shadow:inset 0 0 0 1.5px var(--path)}
+.btn.sm{min-height:44px;padding:6px 14px;font-size:14.5px;flex:none}
+.btn span{font-weight:500;opacity:.85;font-variant-numeric:tabular-nums}
+
+.s-live{--st:var(--live)}.s-soon{--st:var(--soon)}.s-next{--st:var(--next)}.s-fin{--st:var(--muted)}
+.hero{display:grid;gap:4px}.hero h2{font-size:27px}
+.tip{background:var(--surface);border-radius:var(--r);padding:14px 16px;display:grid;gap:12px;box-shadow:inset 0 3px 0 var(--cyan),var(--shadow);font-size:15px}
+.seg{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.seg button{padding:10px 2px;border-radius:18px;background:var(--surface);box-shadow:var(--shadow);font:600 12.5px var(--f-d);color:var(--muted);display:grid;justify-items:center;min-height:72px;align-content:center;gap:2px}
+.seg b{font:800 26px/1 var(--f-d);color:var(--st);font-variant-numeric:tabular-nums}
+.seg button[aria-pressed=true]{box-shadow:inset 0 0 0 2px var(--st),var(--shadow);color:var(--ink)}
+.list{display:grid;gap:14px}
+.ev{background:var(--surface);border-radius:var(--r);padding:16px;display:grid;gap:6px;box-shadow:var(--shadow)}
+.ev-h{display:flex;justify-content:space-between;gap:8px;align-items:center;font-size:13.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.pill{font:700 12px var(--f-d);letter-spacing:.07em;text-transform:uppercase;color:var(--st);display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:99px;background:rgba(0,0,0,.05);background:color-mix(in srgb,var(--st) 13%,transparent)}
+.pill::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--st)}
+.s-live .pill::before,.ring{animation:pulso 1.8s ease-in-out infinite}
+.ev h3{font:700 21px/1.15 var(--f-d);letter-spacing:-.01em;text-wrap:balance;margin-top:2px}
+.ev-l{font-size:14.5px;color:var(--muted)}.ev-d{font-size:14.5px}
+.ev-u{font:700 15px var(--f-d);color:var(--st)}
+.acts{display:flex;gap:8px;margin-top:8px}.acts .btn:first-child{flex:1}
+.empty{background:var(--surface);border-radius:var(--r);padding:18px 16px;color:var(--muted);box-shadow:var(--shadow)}
+@keyframes pulso{50%{opacity:.35}}
+@keyframes sube{from{transform:translate(-50%,24px);opacity:0}}
+
+.view.map{padding:0;gap:0;overflow:hidden}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:12px 16px;scrollbar-width:none;flex:none}
+.chips::-webkit-scrollbar{display:none}
+.chips button{flex:none;padding:8px 15px;border-radius:99px;background:var(--surface);box-shadow:var(--shadow);font:600 14px var(--f-d);color:var(--muted);min-height:40px}
+.chips button[aria-pressed=true]{background:var(--act);color:var(--on-act);box-shadow:none}
+svg.map{display:block;width:100%;font-family:var(--f-b)}
+#map{flex:1;min-height:0;touch-action:none;cursor:grab}
+.zoom{position:absolute;right:12px;bottom:52px;display:grid;gap:8px}
+.zoom button{width:46px;height:46px;border-radius:14px;background:var(--surface);box-shadow:0 2px 8px rgba(0,30,60,.22);font:700 22px/1 var(--f-d)}
+.zoom button:active{transform:scale(.94)}
+.leg{flex:none;padding:9px 16px;font-size:12.5px;color:var(--muted);display:flex;gap:4px 14px;flex-wrap:wrap;align-items:center;background:var(--surface);border-top:1px solid var(--line)}
+.leg i{display:inline-block;width:11px;height:11px;border-radius:50%;border:2.5px solid;margin-right:5px;vertical-align:-1px}
+.leg .l1{border-color:var(--live)}.leg .l2{border-color:var(--soon)}.leg .l3{border:0;border-top:2.5px dotted var(--muted);border-radius:0;width:18px;height:0;vertical-align:3px}
+.cam{stroke:var(--path);stroke-linecap:round}.cam.esc{stroke:var(--muted)}
+.rtc,.rt{fill:none;stroke-linecap:round;stroke-linejoin:round}.rtc{stroke:var(--brand)}.rt{stroke:var(--route)}
+.hit{fill:transparent}
+.pt .dot{fill:var(--surface);stroke:var(--act)}.pt .sig{fill:var(--act)}
+.pt.t-servicio .dot{fill:var(--cyan);stroke:var(--cyan)}.pt.t-servicio .sig{fill:#00263f}
+.pt.t-espacio .dot{fill:var(--act);stroke:var(--act)}.pt.t-espacio .sig{fill:var(--on-act)}
+.pt.t-paso .dot{fill:var(--bg);stroke:var(--muted)}.pt.t-paso .sig{fill:var(--muted)}
+.sig{font-family:var(--f-d);font-weight:800;text-anchor:middle;pointer-events:none}
+.lab,.yo-t{text-anchor:middle;fill:var(--ink);font-weight:600;paint-order:stroke;stroke:var(--bg);stroke-linejoin:round;pointer-events:none}
+.yo-t{font-family:var(--f-d);font-weight:800;letter-spacing:.04em}
+.pt.off{opacity:.22}
+.ring{fill:none}.ring.live{stroke:var(--live)}.ring.soon{stroke:var(--soon)}
+.yo-c{fill:none;stroke:var(--brand)}.yo{fill:none;stroke:var(--route)}.yo.m{fill:var(--route);stroke:var(--brand)}
+.cone{fill:var(--route);opacity:.5}
+
+.scrim{position:fixed;inset:0;background:rgba(0,20,40,.55);z-index:20}
+.sheet{position:fixed;left:50%;bottom:0;transform:translateX(-50%);width:100%;max-width:520px;max-height:84%;overflow-y:auto;overscroll-behavior:contain;background:var(--surface);border-radius:26px 26px 0 0;padding:20px 16px calc(18px + env(safe-area-inset-bottom,0px));z-index:21;display:flex;flex-direction:column;gap:14px;animation:sube .24s var(--ease);outline:0}
+.sh-h{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+.sheet .ico{background:var(--bg);color:var(--ink);font:500 26px/1 var(--f-b);flex:none}
+.mini-ev{list-style:none;padding:0;display:grid;gap:10px}
+.mini-ev li{border-radius:14px;background:var(--bg);padding:10px 12px;font-size:15px}
+.mini-ev small{display:block;color:var(--st);font-size:13.5px;font-weight:600}
+.pick{display:grid;gap:6px}
+.pick button{display:flex;align-items:center;gap:12px;text-align:left;padding:8px 10px;border-radius:14px;min-height:50px;box-shadow:inset 0 0 0 1px var(--line);font-weight:600}
+.pick button[aria-current=true]{box-shadow:inset 0 0 0 2px var(--sun)}
+.pick button:active{background:var(--bg)}
+.pick i{font:800 13px var(--f-d);font-style:normal;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:var(--act);color:var(--on-act);flex:none}
+.toast{position:fixed;left:50%;bottom:calc(78px + env(safe-area-inset-bottom,0px));transform:translate(-50%,12px);max-width:min(92%,480px);background:var(--navy);color:#fff;padding:11px 16px;border-radius:14px;font-size:14.5px;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s var(--ease);z-index:30;box-shadow:0 8px 24px rgba(0,20,40,.3)}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+
+.od{display:grid;grid-template-columns:auto 1fr;gap:10px 12px;align-items:center;background:var(--surface);border-radius:var(--r);padding:16px;box-shadow:var(--shadow)}
+.swt{grid-column:1/-1;display:flex;align-items:center;gap:10px;font:600 16px var(--f-b);letter-spacing:0;text-transform:none;color:var(--ink);min-height:44px}
+.sum{display:flex;gap:6px 18px;align-items:baseline;flex-wrap:wrap}
+.sum b{font:800 44px/1 var(--f-d);letter-spacing:-.02em;font-variant-numeric:tabular-nums}.sum small{font-size:15px;color:var(--muted)}
+#rmap{height:260px;background:var(--surface);border-radius:var(--r);flex:none;box-shadow:var(--shadow)}
+.steps{list-style:none;padding:0;counter-reset:s}
+.steps li{display:grid;grid-template-columns:32px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);align-items:start}
+.steps li::before{counter-increment:s;content:counter(s);width:30px;height:30px;border-radius:50%;background:var(--act);color:var(--on-act);display:grid;place-items:center;font:800 14px var(--f-d)}
+.steps li.fin::before{content:"";background:var(--route);box-shadow:inset 0 0 0 7px var(--act)}
+.steps small{display:block;color:var(--muted);font-size:13.5px;font-variant-numeric:tabular-nums}
+
+.view.ar{padding:0;overflow:hidden;background:#00203a;color:var(--ar-ink);touch-action:none;display:block}
+.ar video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.ar .sim{position:absolute;inset:0;background:linear-gradient(#10365a 0,#3d6a93 46.8%,#a4bbd2 47%,#12283d 47.4%,#061320 100%)}
+.ar.cam-on .sim{display:none}
+.strip{position:absolute;top:0;left:0;right:0;height:32px;background:var(--ar-panel);overflow:hidden}
+.strip span{position:absolute;top:7px;transform:translateX(-50%);font:800 14px var(--f-d);letter-spacing:.1em}
+.strip::after{content:"";position:absolute;left:50%;bottom:0;width:2px;height:8px;background:var(--sun)}
+.hud{position:absolute;top:42px;left:12px;right:12px;background:var(--ar-panel);border-radius:18px;padding:11px 15px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.hud p{font-size:13.5px;opacity:.88;font-variant-numeric:tabular-nums}.hud h2{font-size:25px}
+.lb{position:absolute;transform:translateX(-50%);background:var(--ar-panel);border-radius:12px;padding:6px 10px;font-size:13.5px;font-weight:600;white-space:nowrap;border:1px solid rgba(255,255,255,.3);font-variant-numeric:tabular-nums}
+.lb.dest{border-color:var(--sun);color:var(--sun)}
+.lb em{font:800 11px var(--f-d);font-style:normal;letter-spacing:.07em;text-transform:uppercase;margin-left:7px;padding:1px 6px;border-radius:99px;background:#3ecb96;color:#04261a}
+.lb em.soon{background:#f3a44b;color:#2b1500}
+.arrow{position:absolute;left:50%;top:66%;width:300px;height:300px;margin:-150px 0 0 -150px;will-change:transform;pointer-events:none;filter:drop-shadow(0 6px 10px rgba(0,0,0,.45))}
+.arrow svg{width:100%;height:100%;overflow:visible}
+.arrow .ch{fill:var(--sun);stroke:#00355f;stroke-width:4;stroke-linejoin:round;opacity:.25;animation:fluye 1.5s ease-in-out infinite}
+.arrow .c1{animation-delay:0s}.arrow .c2{animation-delay:.22s}.arrow .c3{animation-delay:.44s}
+.arrow .rg{fill:rgba(255,205,0,.18);stroke:var(--sun);stroke-width:3}
+.arrow .rg2{fill:none;stroke:#fff;stroke-width:2;opacity:.6;animation:onda 1.5s ease-out infinite;transform-origin:80px 80px}
+.arrow.ok .ch{fill:#3ecb96}.arrow.ok .rg{stroke:#3ecb96;fill:rgba(62,203,150,.2)}
+@keyframes fluye{0%{opacity:.2}30%{opacity:1}65%,100%{opacity:.2}}
+@keyframes onda{from{transform:scale(.7);opacity:.7}to{transform:scale(1.5);opacity:0}}
+.turn{display:inline-flex;align-items:center;gap:8px;margin-top:6px;padding:5px 12px;border-radius:99px;background:var(--sun);color:#00355f;font:800 15px var(--f-d)}
+.turn.ok{background:#3ecb96;color:#04261a}
+.edge{position:absolute;top:44%;width:64px;height:92px;display:grid;place-items:center;font:800 40px var(--f-d);color:var(--sun);background:linear-gradient(90deg,rgba(0,28,50,.75),transparent);animation:pulso 1s ease-in-out infinite;pointer-events:none}
+.edge.l{left:0}.edge.r{right:0;transform:scaleX(-1)}
+.edge b{transform:none}
+.lb.dest::before{content:"";display:block;width:2px;height:26px;background:var(--sun);margin:-34px auto 6px}
+.lb.dest{font-size:15px;padding:7px 12px;box-shadow:0 0 0 3px rgba(255,205,0,.35)}
+svg.mini{position:absolute;left:12px;bottom:76px;width:118px;height:118px;border-radius:18px;background:var(--bg);box-shadow:0 0 0 2px rgba(255,255,255,.85)}
+.ar-hint{position:absolute;left:142px;right:12px;bottom:80px;font-size:13.5px;background:var(--ar-panel);border-radius:12px;padding:8px 10px}
+.ar-bar{position:absolute;left:12px;right:12px;bottom:12px;display:flex;gap:8px}
+.ar-bar .btn{flex:1;padding:8px 10px;font-size:15.5px}
+.ar-bar .btn.sec{background:var(--ar-panel);color:var(--ar-ink);box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.5)}
+
+.adm details{background:var(--surface);border-radius:var(--r);padding:0 16px;box-shadow:var(--shadow)}
+.adm summary{font:700 18px var(--f-d);padding:15px 0;cursor:pointer;min-height:50px}
+.adm details>*:not(summary){margin-bottom:12px}
+.adm form{display:grid;gap:8px}
+.adm-l{list-style:none;padding:0;display:grid;gap:8px}
+.adm-l li{display:flex;gap:10px;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);padding-bottom:8px}
+.adm-l div{min-width:0}.adm-l small{display:block;color:var(--muted);font-size:13px}
+code{font:12px/1.35 ui-monospace,Menlo,Consolas,monospace;color:var(--muted);overflow-wrap:anywhere;display:block;-webkit-user-select:all;user-select:all}
+@media (hover:hover) and (pointer:fine){.btn:hover{filter:brightness(1.06)}.pick button:hover{background:var(--bg)}.chips button:hover{filter:brightness(.96)}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* ---- v4 visual ---- */
+body{background:radial-gradient(900px 420px at 50% -120px,rgba(0,169,206,.16),transparent 70%),var(--bg)}
+.top{background:radial-gradient(260px 180px at 92% -30px,rgba(0,169,206,.55),transparent 70%),radial-gradient(200px 160px at 8% 120%,rgba(255,205,0,.22),transparent 70%),linear-gradient(165deg,#00294a,#005289);padding-bottom:17px;border-radius:0 0 28px 28px;box-shadow:0 10px 30px rgba(0,40,80,.28);z-index:2}
+.top::after{left:28px;right:28px;border-radius:3px 3px 0 0}
+.logo{height:46px;max-width:128px;border-radius:14px;padding:6px 10px;box-shadow:0 4px 14px rgba(0,0,0,.25)}
+.brand b{font-size:30px}
+.here{background:rgba(255,255,255,.16);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.demo{margin:10px 16px 0;border:1px solid var(--line);border-radius:12px;padding:7px 12px}
+.view{padding-top:16px}
+.hero{background:linear-gradient(140deg,#00355f,#005289 60%,#0d7fb0);border-radius:24px;padding:18px 18px 20px;color:#fff;position:relative;overflow:hidden;box-shadow:0 14px 30px rgba(0,60,110,.28)}
+.hero::after{content:"";position:absolute;right:-36px;top:-36px;width:150px;height:150px;border-radius:50%;background:radial-gradient(circle,rgba(0,200,235,.55),transparent 68%)}
+.hero h2{color:#fff;position:relative}.hero .eb{color:#7fe0f4;position:relative}.hero .muted{color:rgba(255,255,255,.82);position:relative}
+.tip{border-radius:22px}
+.seg button{border-radius:20px;transition:transform .14s var(--ease),box-shadow .2s}
+.seg button:active{transform:scale(.96)}
+.ev{border-radius:24px;padding:16px 16px 14px;box-shadow:inset 6px 0 0 var(--st),var(--shadow);animation:entra .45s var(--ease) both}
+.ev:nth-child(2){animation-delay:.05s}.ev:nth-child(3){animation-delay:.1s}.ev:nth-child(4){animation-delay:.15s}.ev:nth-child(n+5){animation-delay:.2s}
+@keyframes entra{from{opacity:0;transform:translateY(12px)}}
+.ev-t{display:flex;gap:12px;align-items:flex-start;margin-top:4px}
+.bd{flex:none;width:52px;border-radius:16px;background:linear-gradient(160deg,#00355f,#005289);color:#fff;display:grid;justify-items:center;padding:7px 0 6px;line-height:1}
+.bd b{font:800 24px/1 var(--f-d)}.bd span{font:700 11px var(--f-d);letter-spacing:.1em;text-transform:uppercase;color:var(--sun);margin-top:3px}
+.s-fin .bd{background:linear-gradient(160deg,#6b7a8c,#8896a6)}
+.ev h3{margin-top:0;font-size:19px}
+.btn{background:linear-gradient(180deg,#ffd633,#ffcd00);box-shadow:0 6px 14px rgba(255,205,0,.35),inset 0 -2px 0 rgba(0,0,0,.08);border-radius:16px}
+.btn.sec{background:transparent;box-shadow:inset 0 0 0 1.5px var(--path)}
+.tabs{margin:0 12px calc(10px + env(safe-area-inset-bottom,0px));padding-bottom:0;border:1px solid var(--line);border-radius:26px;box-shadow:0 12px 30px rgba(0,40,80,.18);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);background:color-mix(in srgb,var(--surface) 92%,transparent);z-index:3}
+.tabs button{min-height:62px;border-radius:22px}
+.tabs button[aria-current=page]{background:color-mix(in srgb,var(--act) 10%,transparent)}
+.tabs button[aria-current=page]::before{top:auto;bottom:5px;left:42%;right:42%;height:4px;border-radius:4px}
+.view>*{flex-shrink:0}
+.view{padding-bottom:96px}
+.view.map,.view.ar{padding-bottom:0}
+#rmap,.od{border-radius:24px}
+.chips button{box-shadow:0 2px 8px rgba(0,40,80,.1)}
+.zoom{bottom:68px}
+.sheet{border-radius:30px 30px 0 0;box-shadow:0 -10px 40px rgba(0,20,40,.3)}
+.sheet::before{content:"";width:44px;height:5px;border-radius:5px;background:var(--line);align-self:center;margin-top:-8px}
+.toast{bottom:calc(96px + env(safe-area-inset-bottom,0px))}
+
+
+.f-pla{fill:#e8e4d8}.f-grn{fill:#bfe0b0}.f-blk{fill:#00355f}.f-red{fill:#c4573f}
+.w.wl{fill:#00203a}.w.wr{fill:#002b4d}.w.d.wl{fill:#8a3624}.w.d.wr{fill:#a24330}.roof{stroke:rgba(255,255,255,.22);stroke-width:.4}
+.cam{stroke:#fff;stroke-opacity:.95}.cam.esc{stroke:var(--cyan);stroke-opacity:1}
+.rtc{stroke:#fff}.rt{stroke:#ff4f1a}
+.rp circle{fill:#0a6cc4;stroke:#fff;stroke-width:2}.rp .hd{fill:#fff;stroke:none}.rp path{fill:none;stroke:#fff;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.vt{position:absolute;left:12px;top:64px;z-index:3;display:flex;background:var(--surface);border-radius:14px;box-shadow:0 2px 8px rgba(0,30,60,.22);padding:3px;gap:2px}
+.vt button{min-width:46px;min-height:38px;border-radius:11px;font:800 14px var(--f-d);color:var(--muted);touch-action:manipulation}
+.vt button[aria-pressed=true]{background:var(--act);color:var(--on-act)}
+.leg .l4{background:#0a6cc4;border-color:#0a6cc4}.leg .l5{border-radius:3px;width:18px;height:5px;background:#ff4f1a;border:0;vertical-align:2px}
+@media(prefers-color-scheme:dark){.f-pla{fill:#2a3038}.f-grn{fill:#264a34}.f-blk{fill:#1f5e93}.w.wl{fill:#0d3558}.w.wr{fill:#124068}.cam{stroke:#8896a5}.rtc{stroke:#0b1a2a}}
+
+/* AR a pantalla completa y menos apretado */
+body:has(.view.ar) .top,body:has(.view.ar) .tabs{display:none}
+.ar .strip{top:env(safe-area-inset-top,0px);height:26px}.ar .strip span{top:4px;font-size:12.5px}
+.ar-x{position:absolute;left:12px;top:calc(env(safe-area-inset-top,0px) + 36px);width:46px;height:46px;border-radius:15px;background:var(--ar-panel);color:var(--ar-ink);font:700 19px var(--f-d);z-index:4;touch-action:manipulation}
+.ar .hud{top:calc(env(safe-area-inset-top,0px) + 36px);left:66px;right:12px;padding:7px 13px;border-radius:15px;min-height:46px}
+.ar .hud p{font-size:12px;line-height:1.25}.ar .hud #arK{opacity:.7;text-transform:uppercase;letter-spacing:.06em;font-size:10.5px}
+.ar .hud h2{font-size:18px;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ar .hud .turn{position:fixed;left:50%;transform:translateX(-50%);top:calc(env(safe-area-inset-top,0px) + 100px);font-size:16px;padding:7px 16px;box-shadow:0 6px 16px rgba(0,0,0,.3);white-space:nowrap;z-index:3}
+.ar .hud .turn[hidden]{display:none}
+.ar .arrow{width:250px;height:250px;margin:-125px 0 0 -125px;top:64%;filter:drop-shadow(0 4px 8px rgba(0,0,0,.4))}
+.ar .lb{font-size:12.5px;padding:4px 9px;border-radius:10px;background:rgba(0,28,50,.62)}
+.ar .edge{width:42px;height:70px;font-size:32px}
+.ar svg.mini{left:auto;right:12px;bottom:calc(76px + env(safe-area-inset-bottom,0px));width:92px;height:92px;border-radius:16px;opacity:.92;transition:width .2s cubic-bezier(.23,1,.32,1),height .2s cubic-bezier(.23,1,.32,1)}
+.ar svg.mini.big{width:min(300px,82vw);height:min(300px,82vw);opacity:1}
+.ar .ar-hint{left:12px;right:auto;bottom:calc(132px + env(safe-area-inset-bottom,0px));max-width:calc(100% - 128px);font-size:12px;padding:6px 10px;opacity:.9}
+.ar .ar-bar{left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px))}
+.ar .ar-bar .btn{min-height:48px;font-size:15px}
+
+.vt button[data-act=edOn]{min-width:40px}
+.vd{fill:#fff;stroke:#0a6cc4}.vs{fill:none;stroke:var(--sun)}
+.edbar{flex:none;padding:10px 12px 8px;background:var(--surface);border-bottom:1px solid var(--line);display:grid;gap:7px}
+.edbar p{font-size:12.5px;color:var(--muted);line-height:1.3}
+.edt,.eda{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+.edbar button{flex:none;padding:8px 12px;border-radius:99px;background:var(--bg);font:700 13.5px var(--f-d);color:var(--ink);min-height:38px;touch-action:manipulation}
+.edt button[aria-pressed=true]{background:var(--act);color:var(--on-act)}.eda .ok{background:#16a37a;color:#fff;margin-left:auto}
+body:has(.view.ar) .demo,body:has(.edbar) .top,body:has(.edbar) .demo{display:none}
+.cam.ed{stroke:#6a2cff;stroke-opacity:.9}.cam.ed.esc{stroke:#00a9ce;stroke-opacity:1}.cam.rmp{stroke:#0a6cc4;stroke-opacity:1}
+
+/* plano propio + ruta resaltada */
+.f-pla{fill:#f1ede3}.f-grn{fill:#cfe8c0}.f-blk{fill:#1d3f66}.f-red{fill:#b9573f}
+.cam{stroke:#ffffff;stroke-opacity:1}.cam.esc{stroke:#00a9ce}.cam.rmp{stroke:#0a6cc4}
+.rtg{fill:none;stroke:#ff1f6b;stroke-opacity:.28;stroke-linecap:round;stroke-linejoin:round}
+.rtc{stroke:#fff!important}.rt{stroke:#ff1f6b!important}
+.rtf{fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;animation:rflow 1.1s linear infinite}
+@keyframes rflow{to{stroke-dashoffset:-28}}
+@media(prefers-reduced-motion:reduce){.rtf{animation:none}}
+.leg .l5{background:#ff1f6b!important}
+.vt button{min-width:42px}
+@media(prefers-color-scheme:dark){.f-pla{fill:#283039}.f-grn{fill:#25452f}.f-blk{fill:#2a6aa3}.cam{stroke:#cfd8e3}.rtc{stroke:#0b1a2a!important}}
+
+.rtg{stroke:#ff0a54!important;stroke-opacity:.32!important}
+.rto{fill:none;stroke:#3a0010;stroke-opacity:.55;stroke-linecap:round;stroke-linejoin:round}
+.rtc{stroke:#fff!important}.rt{stroke:#ff0a54!important}
+.leg .l5{background:#ff0a54!important}
+
+.ardest{position:absolute;left:0;right:0;bottom:calc(72px + env(safe-area-inset-bottom,0px));display:flex;gap:8px;overflow-x:auto;padding:2px 12px;scroll-snap-type:x mandatory;scroll-padding:0 12px;scrollbar-width:none;overscroll-behavior-x:contain;touch-action:pan-x;z-index:3}
+.ardest::-webkit-scrollbar{display:none}
+.ardest button{flex:none;scroll-snap-align:start;display:flex;gap:9px;align-items:center;padding:7px 13px 7px 7px;border-radius:15px;background:var(--ar-panel);color:var(--ar-ink);box-shadow:inset 0 0 0 1px rgba(255,255,255,.22);text-align:left;max-width:230px;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);transition:transform .14s cubic-bezier(.23,1,.32,1);touch-action:manipulation;user-select:none;-webkit-user-select:none}
+.ardest button:active{transform:scale(.96)}
+.ardest i{flex:none;width:32px;height:32px;border-radius:10px;display:grid;place-items:center;background:var(--sun);color:#00355f;font:800 12.5px var(--f-d);font-style:normal}
+.ardest span{display:grid;line-height:1.2;min-width:0}.ardest b{font:700 14px var(--f-d);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ardest small{font-size:11.5px;opacity:.85;white-space:nowrap;font-variant-numeric:tabular-nums}
+.ardest em{font-style:normal;font:800 9.5px var(--f-d);letter-spacing:.06em;text-transform:uppercase;margin-right:6px;padding:1px 6px;border-radius:99px;background:rgba(255,255,255,.2)}
+.ardest em.live{background:#3ecb96;color:#04261a}.ardest em.soon{background:#f3a44b;color:#2b1500}
+.ardest button[aria-current=true]{background:rgba(255,205,0,.94);color:#00355f;box-shadow:none}.ardest button[aria-current=true] i{background:#00355f;color:var(--sun)}
+.ar svg.mini{bottom:calc(140px + env(safe-area-inset-bottom,0px))}
+.ar .ar-hint{bottom:calc(140px + env(safe-area-inset-bottom,0px))}
+
+.ardest em{justify-self:start;margin:0 0 2px}
+.ardest button{min-height:56px}
+body:has(.view.ar) .toast{bottom:calc(150px + env(safe-area-inset-bottom,0px))}
+#hereN{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* ---- fusión: horario, pisos, buscador, maqueta 3D, carteles QR ---- */
+.tabs{grid-template-columns:repeat(5,1fr)}.tabs button{font-size:11px;letter-spacing:0}
+#m3dH{flex:1;min-height:0;position:relative;display:none;background:#d9e8f5}
+#m3dH canvas{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none;outline:0}
+.view.map.d3 #m3dH{display:block}.view.map.d3 #map{display:none}
+.niv{list-style:none;padding:0;display:grid;gap:4px}
+.niv li{display:grid;grid-template-columns:34px 1fr auto;gap:10px;align-items:center;padding:8px 10px;border-radius:12px;background:var(--bg);font-size:14px;line-height:1.35}
+.niv b{font:800 13px var(--f-d);color:var(--act)}.niv button{font:700 13.5px var(--f-d);color:var(--act);min-height:40px;padding:0 10px;text-decoration:underline;text-underline-offset:3px}
+.srch{display:grid;gap:6px}.srch .pick:empty{display:none}
+.pick span{display:grid;min-width:0}.pick small{font-weight:400;color:var(--muted);font-size:13px}
+.src{font-size:12.5px;color:var(--muted);margin-top:-8px}
+.row2{display:flex;gap:6px;flex:none}
+.qr{display:grid;justify-items:center;gap:10px;text-align:center}.qr svg{width:min(260px,70vw);height:auto;background:#fff;border-radius:12px}
+@media print{body{background:#fff;display:block}body>*:not(#sheet){display:none!important}.sheet{position:static;transform:none;max-width:none;max-height:none;overflow:visible;box-shadow:none;color:#000;padding:40px}.sheet::before,.np,.sheet code{display:none!important}.qr svg{width:11cm}.qr h2{font-size:30pt}.qr p{font-size:15pt}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="top">
+<div class="brand"><b><svg viewBox="0 0 22 26" aria-hidden="true"><path d="M11 0C5 0 .5 4.5.5 10.3.5 17 11 26 11 26s10.5-9 10.5-15.7C21.5 4.5 17 0 11 0zm0 14.2a3.9 3.9 0 1 1 0-7.8 3.9 3.9 0 0 1 0 7.8z"/></svg>Ubicato</b><span>Campus UCB · La Paz</span></div>
+<div class="tr"><img class="logo" src="logo-ucb.png" alt="Universidad Católica Boliviana" onerror="if(!this.dataset.r){this.dataset.r=1;this.src='https://lpz.ucb.edu.bo/wp-content/uploads/2021/04/logo-ucb-colores-nal.png'}else this.remove()"><button class="ico" data-act="go" data-v="ajustes" aria-label="Administrar datos"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h9M19 7h1M4 17h1M11 17h9"/><circle cx="16" cy="7" r="2.5"/><circle cx="8" cy="17" r="2.5"/></svg></button></div>
+<button class="here" data-act="origen"><span>Estás en</span><b id="hereN"></b><i>Cambiar</i></button>
+</header>
+<div class="demo" id="demo" hidden><b>Eventos de ejemplo.</b> No se pudo leer la Agenda Universitaria.</div>
+<main id="main"></main>
+<nav class="tabs" aria-label="Secciones">
+<button data-act="go" data-v="eventos"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3v3M17 3v3M4 10h16M5 5h14a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z"/></svg>Eventos</button>
+<button data-act="go" data-v="mapa"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2zM9 4v14M15 6v14"/></svg>Mapa</button>
+<button data-act="go" data-v="ruta"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="6" r="2.5"/><path d="M8.5 18H14a3 3 0 0 0 0-6h-4a3 3 0 0 1 0-6h5.5"/></svg>Ruta</button>
+<button data-act="go" data-v="camara"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>Cámara</button>
+<button data-act="go" data-v="horario"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="13" r="7.5"/><path d="M12 9v4l2.6 1.6M5 4 3 6M19 4l2 2"/></svg>Horario</button>
+</nav>
+</div>
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" tabindex="-1" hidden></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+(()=>{'use strict';
+const $=(s,r=document)=>r.querySelector(s),LS='ubicato7',rad=x=>x*Math.PI/180;
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const store={get(k){try{return JSON.parse(localStorage.getItem(LS+k))}catch(e){return null}},set(k,v){try{localStorage.setItem(LS+k,JSON.stringify(v))}catch(e){}},del(k){try{localStorage.removeItem(LS+k)}catch(e){}}};
+const hav=(a,b)=>{const s=Math.sin(rad(b.lat-a.lat)/2)**2+Math.cos(rad(a.lat))*Math.cos(rad(b.lat))*Math.sin(rad(b.lng-a.lng)/2)**2;return 12742000*Math.asin(Math.sqrt(s))};
+const brg=(a,b)=>{const y=Math.sin(rad(b.lng-a.lng))*Math.cos(rad(b.lat)),x=Math.cos(rad(a.lat))*Math.sin(rad(b.lat))-Math.sin(rad(a.lat))*Math.cos(rad(b.lat))*Math.cos(rad(b.lng-a.lng));return(Math.atan2(y,x)*180/Math.PI+360)%360};
+const VEL=75,TIPO={entrada:'Entrada',bloque:'Bloque',servicio:'Servicio',espacio:'Espacio',paso:'Acceso'},RUMBO=['norte','noreste','este','sureste','sur','suroeste','oeste','noroeste'],CARD=['N','NE','E','SE','S','SO','O','NO'];
+const fH=new Intl.DateTimeFormat('es-BO',{hour:'2-digit',minute:'2-digit',hour12:false}),fD=new Intl.DateTimeFormat('es-BO',{weekday:'short',day:'numeric',month:'short'});
+let D,PT,ADJ,PR,V=null,R=null;
+const S={raw:0,off:0,view:'eventos',tab:'live',origen:null,destino:null,acc:false,filtro:'todo',modo:'manual',gps:null,gpsOK:false,watch:null,heading:0,compOK:false,stream:null,arDirty:true,adm:'cal',v3:!!store.get('.v3'),dp:null};
+
+/* Campus UCB La Paz según el plano oficial 2025. Lugares (PLN), bloques y áreas (FON) y el grafo de caminos editado a mano por Gael (USR) van en px del plano; px2ll() los pasa a GPS. */
+const PLN=[["entrada","Ingreso principal","Ingreso","entrada","In",654,808],["atrio","Atrio","Atrio","espacio","At",649,797],["cajas","Cajas · Tesorería (Bloque G)","Cajas","servicio","Bs",588,636],["bloqueJ","Bloque J","Bloque J","bloque","J",546,631],["bloqueK","Bloque K","Bloque K","bloque","K",655,682],["bloqueG1","Bloque G1","Bloque G1","bloque","G1",606,631],["bloqueG2","Bloque G2","Bloque G2","bloque","G2",799,519],["agora","Ágora","Ágora","espacio","Ag",745,427],["coliseo","Coliseo (Bloque A)","Coliseo","espacio","A",655,285],["bloqueB","Bloque B","Bloque B","bloque","B",839,256],["bloqueC","Bloque C","Bloque C","bloque","C",883,232],["bloqueF","Bloque F","Bloque F","bloque","F",1000,373],["bloqueH","Cafetería · entrada norte","Cafetería N","servicio","H",920,457],["biblioteca","Biblioteca (Bloque I)","Biblioteca","servicio","Bi",1039,574],["bloqueL","Bloque L","Bloque L","bloque","L",1075,790],["bloqueD","Bloque D","Bloque D","bloque","D",513,537],["capilla","Capilla El Arca","El Arca","espacio","Cp",907,654],["ascD","Ascensor Bloque D","Ascensor D","paso","As",528,512],["paraninfo","Paraninfo","Paraninfo","espacio","Pa",492,478],["coliseoE","Entrada al Coliseo","Ent. Coliseo","entrada","E",690,338],["cafeO","Cafetería · entrada oeste","Cafetería O","servicio","H",846,507]];
+const FON=[["pla",0,"1023,797 1018,797 1017,807 1010,807 1007,794 982,789 985,802 978,809 906,806 906,814 982,817 993,801 1003,801 1012,812 1023,811"],["pla",0,"798,756 787,738 768,732 766,746 755,757 744,758 742,772"],["pla",0,"516,784 516,810 596,812 609,824 602,840 604,847 628,821 641,815 667,818 684,834 700,833 702,821 715,819 718,798 726,795 724,782 694,770 692,760 681,759 681,750 668,753 664,738 676,735 679,723 670,733 661,731 659,726 618,730 624,714 610,717 613,742 605,736 596,739 610,749 633,743 632,753 603,760 602,769 594,765 583,769 576,762 570,772 559,772 554,763 552,773 540,769 532,781"],["pla",0,"1197,774 1192,744 1196,712 1189,705 1182,705 1181,718 1098,720 1100,744 1174,746 1178,775"],["pla",0,"388,682 408,684 409,695 403,700 418,705 409,721 427,725 425,707 444,708 461,717 476,739 486,768 483,823 488,837 492,824 485,823 485,816 492,812 495,779 488,723 507,720 512,734 531,729 547,741 570,735 574,722 599,718 596,713 531,720 529,711 565,699 564,693 518,700 512,693 510,675 505,675 508,697 484,700 488,665 397,645"],["pla",0,"1191,627 1181,628 1181,637 1172,638 1165,648 1140,639 1137,629 1128,634 1118,629 1113,636 1102,633 1104,678 1092,688 1110,688 1110,654 1129,655 1132,682 1147,678 1154,668 1193,666"],["pla",0,"957,595 959,638 944,643 955,664 948,691 1047,689 1062,682 1048,671 1033,675 1016,668 1016,660 1024,656 1013,600 1003,586 991,587 979,598"],["pla",0,"780,528 635,618 614,627 595,626 592,637 586,637 584,629 572,626 569,630 583,637 583,647 598,650 614,646 631,650 646,639 669,638 675,609 784,542"],["pla",0,"642,514 631,506 615,511 610,503 590,522 552,541 554,553 532,562 528,572 520,574 512,564 498,612 499,638 554,634 531,594 532,583 572,558 583,558 584,550 622,526 624,516 634,514 638,521"],["pla",0,"1008,484 1004,484 1001,527 982,553 935,574 901,574 884,567 873,568 872,574 928,581 966,573 1003,534 1010,515"],["pla",0,"947,465 934,454 921,469 912,470 910,477 868,502 843,526 856,526 875,541 898,532 908,545 912,540 906,538 902,525 920,524 920,512 931,508 938,524 923,536 934,536 940,530 942,518 932,503 943,500 950,489 943,477"],["pla",0,"1178,361 1161,362 1161,373 1167,375 1162,386 1178,391 1178,408 1167,413 1119,415 1108,434 1084,438 1083,449 1066,449 1067,444 1076,440 1072,426 1067,424 1065,442 1036,441 1027,464 1020,464 1014,452 1004,451 999,465 1005,472 1025,472 1049,511 1053,486 1091,485 1146,457 1161,482 1175,483 1172,504 1176,504 1180,480 1190,475 1179,419 1183,393"],["pla",0,"1069,378 1060,376 1058,353 1039,354 1054,359 1054,375 993,381 990,387 1060,379 1063,388 1069,389"],["pla",0,"822,284 793,280 582,410 590,434 627,487 665,465 675,471 675,460 708,444 722,430 848,353 859,352 850,328 826,300"],["pla",0,"845,169 864,197 882,204 882,216 890,217 890,224 884,226 886,246 878,257 892,254 894,248 907,248 909,282 914,282 912,270 919,268 919,246 956,244 959,237 1042,246 1044,276 1082,278 1085,250 1105,244 1145,250 1134,160 959,152 886,161 855,160 858,172"],["grn",0,"900,793 906,804 978,808 984,801 976,787 906,785"],["grn",0,"1196,775 1180,776 1180,819 1174,837 1129,840 1085,835 1082,798 1074,798 1070,846 1196,844 1203,837"],["grn",0,"1052,759 1032,745 829,756 828,790 856,789 862,777 873,777 881,789 889,789 898,777 908,773 988,778 993,793 1004,793 1011,783 1022,782 1022,815 1011,814 1003,802 993,802 982,819 940,820 899,815 889,799 873,810 862,810 860,799 755,796 736,804 732,825 739,839 792,842 792,832 800,831 802,842 1056,845 1058,814 1049,812 1049,804 1036,803 1037,794 1051,795"],["grn",0,"491,723 496,757 494,823 502,834 539,825 608,830 596,813 507,811 507,768 499,763 499,755 510,741 507,722"],["grn",0,"820,719 804,713 785,723 792,747 810,746 804,757 737,774 732,782 810,784 813,748 824,735"],["grn",0,"599,699 573,696 566,699 573,703 572,710 553,711 548,706 522,718 599,712"],["grn",0,"1044,690 947,692 926,698 926,710 937,713 943,698"],["grn",0,"811,708 909,702 918,696 902,685 898,666 861,659 832,682"],["grn",0,"502,634 483,700 506,697"],["grn",0,"1070,630 1072,719 1181,713 1177,700 1181,668 1163,667 1144,680 1094,689 1092,682 1103,678 1100,629"],["grn",0,"1152,612 1150,618 1139,620 1140,638 1163,646 1172,636 1180,637 1177,617 1169,617 1168,610"],["grn",0,"1021,597 1014,601 1026,668 1039,674 1046,663 1032,601"],["grn",0,"988,580 955,577 953,592 896,622 877,649 900,656 920,640 957,639 955,595 986,591"],["grn",0,"896,590 857,572 862,611 850,620 853,604 842,591 835,596 831,626 840,637 814,662 807,661 807,649 816,646 821,627 806,621 809,647 788,650 784,669 787,673 802,666 803,673 785,692 774,694 773,706 787,709 825,669 833,670 840,657 850,654 868,629 883,626"],["grn",0,"831,576 814,569 787,592 764,598 714,641 706,664 744,677 769,657 773,620 812,602"],["grn",0,"788,547 782,543 766,552 765,563 727,588 694,623 670,632 670,645 701,638 792,557"],["grn",0,"1001,468 986,454 976,460 968,476 982,499 887,568 935,573 982,551 999,530 1003,514"],["grn",0,"1114,417 1079,419 1076,430 1079,436 1112,430"],["grn",0,"1060,381 984,390 1023,464 1042,464 1064,438"],["grn",0,"857,371 849,369 735,441 737,449"],["grn",0,"909,309 902,331 922,344 934,366 938,318 931,310"],["red",20,"523,361 490,379 494,395 467,414 471,431 441,452 441,481 422,565 431,568 424,604 405,603 398,643 490,663 505,567 548,538 560,538 617,499 572,425 560,423"],["blk",3,"703,821 702,841 714,841 714,822"],["blk",13,"1174,753 1147,753 1140,747 1129,751 1096,751 1093,831 1125,832 1132,836 1174,833"],["blk",5,"1048,689 1052,730 1058,730 1059,723 1070,729 1067,702 1058,707 1058,688"],["blk",16,"1145,458 1090,488 1051,489 1051,511 1046,515 1035,513 1053,546 1054,594 1109,594 1124,610 1157,588 1174,589 1169,483 1158,482"],["blk",15,"870,370 866,368 645,514 652,536 636,542 627,528 620,528 589,548 583,559 574,559 534,583 532,594 551,626 564,630 586,615 591,615 599,626 616,618 631,618 687,587 908,441 910,432"],["blk",16,"931,277 940,316 944,373 961,372 961,362 1067,350 1076,410 1162,402 1148,281 1028,294 1027,287 1020,286 1019,266"],["blk",11,"776,175 793,210 806,215 806,226 814,239 840,225 847,214 856,216 867,208 840,166 807,170 796,162"],["blk",18,"730,154 551,216 506,317 561,411 797,263"]];
+const USR={"vias":[["v0",559.9,422.3],["v1",575.2,415.2],["v6",963.1,379.1],["v7",964.1,379.1],["v8",964.1,380.2],["v9",935.1,378],["v10",867.1,646.1],["v11",867.1,647.2],["v12",868.2,647.2],["v13",866.1,647.2],["v14",861.9,540.2],["v15",862.9,540.2],["v16",861.9,539.1],["v17",854,559.8],["v18",770.2,703.9],["v19",777,681],["v20",769.1,714.9],["v21",769.1,715.9],["v22",770.2,715.9],["v23",846.1,506.9],["v24",927.7,447.9],["v25",924.1,434.3],["v26",845,506.9],["v27",845,508],["v28",642.1,737.8],["v29",641,737.8],["v30",642.1,738.9],["v32",954.1,576.7],["v33",916.2,589.8],["v34",788.1,791.8],["v35",818.1,790.7],["v36",944.1,521.1],["v37",901.9,552.2],["v38",885.1,552.2],["v39",969.9,404.2],["v40",986.8,438.1],["v41",855,648.3],["v42",831.8,671.2],["v43",767,717],["v44",768.1,717],["v45",747,719.8],["v46",768.1,718.1],["v47",605.2,676.1],["v48",652.1,677.2],["v49",823.9,532],["v50",949.9,471.9],["v51",950.9,471.9],["v52",949.9,473],["v53",949.9,470.8],["v54",849.7,568],["v55",859.8,586],["v56",858.2,601.9],["v57",849.7,566.9],["v58",849.2,566.9],["v59",1040,677.2],["v60",1041.1,677.2],["v61",1041.1,677.7],["v62",777,648.3],["v63",777,679.9],["v64",644.2,773.8],["v65",643.2,773.8],["v66",644.2,773.3],["v67",819.2,790.7],["v68",820.2,790.7],["v69",819.2,790.2],["v71",653.2,676.1],["v72",653.2,677.2],["v73",536.2,777.1],["v74",633.1,502],["v75",633.1,503.1],["v76",634.2,503.1],["v77",683.7,464.8],["v78",831.8,737.8],["v79",831.8,738.9],["v80",832.9,738.9],["v81",830.8,738.9],["v82",1042.1,677.2],["v83",937.2,363.9],["v84",934.1,377],["v85",735.9,731.2],["v86",744.9,719.8],["v87",676.9,803.8],["v88",704.8,785.8],["v89",653.2,808.2],["v90",653.2,807.1],["v91",500.9,558.7],["v92",501.9,558.7],["v93",500.9,559.8],["v94",498.8,550],["v95",876.1,316.9],["v96",876.1,342],["v97",1106.9,671.2],["v98",1109,645],["v99",1155.9,637.9],["v100",654.8,681],["v101",655.8,682.1],["v102",653.2,677.7],["v103",633.1,504.1],["v104",521.9,582.8],["v105",933,378],["v106",934.1,378],["v107",910.9,377],["v108",893,225.7],["v109",830.2,261.2],["v110",807.1,260.1],["v111",1050,728],["v112",975.2,731.2],["v115",919.8,736.1],["v116",745.9,719.8],["v117",745.9,719.2],["v120",1015.8,477.9],["v121",752.8,688.1],["v122",750.1,683.7],["v126",654.8,683.2],["v127",654.8,707.2],["v128",530.9,541.3],["v129",525.1,535.3],["v130",514,535.8],["v131",670,682.1],["v132",923,434.3],["v133",922,434.3],["v134",923,433.2],["v135",778.1,679.9],["v137",503,570.2],["v138",501.9,570.2],["v139",503,569.1],["v140",519.8,582.8],["v141",755.9,796.2],["v142",722.2,796.2],["v143",520.9,582.8],["v144",520.9,583.8],["v145",513,535.8],["v146",848.2,497],["v147",841.8,502],["v148",869.2,345.8],["v149",783.9,398.2],["v151",800.2,529.8],["v152",807.1,542.9],["v153",635.3,736.1],["v154",602,749.8],["v155",587.8,749.8],["v156",1010,588.2],["v157",1001,600.8],["v158",784.9,224.1],["v159",786,224.1],["v160",786,225.2],["v161",674.3,679.9],["v162",690.1,666.3],["v163",703.2,641.2],["v164",772.8,577.8],["v165",1001,601.9],["v166",1000,601.9],["v167",1020,671.7],["v168",986.8,439.2],["v169",987.8,439.2],["v170",986.2,439.2],["v171",992,790.7],["v172",992,791.8],["v173",993.1,791.8],["v174",979.9,779.8],["v175",906.1,778.2],["v176",894,789.1],["v177",748,298.9],["v178",803.9,249.2],["v179",893,789.1],["v180",1071.1,445.7],["v181",894,790.2],["v182",992,792.9],["v183",821.8,746],["v184",820.2,766.2],["v185",1028.9,522.2],["v186",1030,522.2],["v187",1028.9,521.1],["v188",576.2,415.2],["v189",576.2,414.1],["v190",592,439.7],["v191",654.8,707.8],["v192",655.8,707.8],["v193",637.9,712.1],["v194",1020,672.8],["v195",1018.9,672.8],["v196",977.8,808.2],["v197",944.1,808.2],["v198",904,802.7],["v199",885.1,623.1],["v200",855,560.9],["v201",854,560.9],["v202",773.9,578.9],["v203",773.9,577.8],["v204",787,581.1],["v205",812.9,553.8],["v206",744.9,301.1],["v207",626.8,380.2],["v208",1026.8,368.2],["v209",519.8,592],["v210",529.8,613.9],["v211",612.1,630.8],["v212",645.8,637.9],["v213",1054.2,635.2],["v214",1060,673.9],["v215",480.8,571.8],["v216",963.1,465.9],["v217",967.8,452.8],["v218",737,755.8],["v219",986.2,677.2],["v220",966.2,636.8],["v221",964.1,646.1],["v222",576.8,408.1],["v223",874,465.9],["v224",797,521.1],["v225",783.9,398.2],["v226",1050,728],["umwdxtu8s",818.7,656.4],["umwdxudw1",811.8,698.5],["umwdxusw4",1011,802.2],["umwdxuvce",1047.9,797.8],["umwdxuyk1",1070,800],["umwdxv17d",1068.5,771.6],["umwdxve7b",518.3,778.2],["umwdxvg9r",524,756.3],["umwdxvkd1",522.5,737.8],["umwdxvmjr",546.7,750.3],["umwdxwlm5",585.7,737.2],["umwdxy0tr",688,747.6],["umwdxy5d7",714.3,743.8],["umwdxy7lz",690.1,725.2],["umwdxz73a",788.6,619.3],["umwdxzsoi",832.9,596.4],["umwdy0fid",1072.7,367.7],["umwdy1hmi",1061.6,709.4],["umwdy2fez",1021,551.6]],"caminos":[["v0","v1",0,0,0,0],["v6","v7",0,0,0,0],["v6","v8",0,0,0,0],["v6","v9",0,0,0,0],["v10","v11",0,0,0,0],["v10","v12",0,0,0,0],["v10","v13",0,0,0,0],["v14","v15",0,0,0,0],["v14","v16",0,0,0,0],["v14","v17",0,0,0,0],["v18","v19",0,0,0,0],["v20","v21",0,0,0,0],["v20","v22",0,0,0,0],["v23","bloqueH",0,0,0,0],["bloqueH","v24",0,0,0,0],["v24","v25",0,0,0,0],["v23","v26",0,0,0,0],["v23","v27",0,0,0,0],["v28","v29",0,0,0,0],["v28","v30",0,0,0,0],["v32","v33",0,0,0,0],["v34","v35",0,0,0,0],["v36","v37",0,0,0,0],["v37","v38",0,0,0,0],["v15","v38",0,0,0,0],["v7","v8",0,0,0,0],["v8","v39",0,0,0,0],["v39","v40",1,0,0,0],["v11","v13",0,0,0,0],["v13","v41",0,0,0,0],["v41","v42",0,0,0,0],["v43","v44",0,0,0,0],["v43","v45",0,0,0,0],["v43","v46",0,0,0,0],["v47","v48",0,0,0,0],["v26","v27",0,0,0,0],["v27","v49",0,0,0,0],["v50","v51",0,0,0,0],["v50","v52",0,0,0,0],["v50","v53",0,0,0,0],["v54","v55",0,0,0,0],["v55","v56",0,0,0,0],["v54","v57",0,0,0,0],["v54","v58",0,0,0,0],["v59","v60",0,0,0,0],["v59","v61",0,0,0,0],["v62","v63",0,0,0,0],["v64","v65",0,0,0,0],["v64","v66",0,0,0,0],["v64","atrio",0,0,0,0],["v67","v68",0,0,0,0],["v35","v67",0,0,0,0],["v67","v69",0,0,0,0],["v44","v46",0,0,0,0],["v71","v72",0,0,0,0],["v48","v71",0,0,0,0],["v74","v75",0,0,0,0],["v74","v76",0,0,0,0],["v76","v77",0,0,0,0],["v78","v79",1,0,0,0],["v78","v80",1,0,0,0],["v78","v81",0,0,0,0],["v60","v82",0,0,0,0],["v60","v61",0,0,0,0],["v83","v84",0,0,0,0],["v85","v86",0,0,0,0],["entrada","v87",0,0,0,0],["v87","v88",0,0,0,0],["entrada","v89",0,0,0,0],["entrada","v90",0,0,0,0],["v91","v92",0,0,0,0],["v91","v93",0,0,0,0],["v91","v94",0,0,0,0],["v94","bloqueD",0,0,0,0],["v95","v96",0,0,0,0],["v97","v98",0,0,0,0],["v98","v99",0,0,0,0],["v100","bloqueK",0,0,0,0],["v100","v101",0,0,0,0],["v100","v102",0,0,0,0],["v75","v103",0,0,0,0],["v76","v103",0,0,0,0],["v103","v104",0,0,0,0],["v105","v106",0,0,0,0],["v105","v107",0,0,0,0],["v84","v105",0,0,0,0],["v75","v76",0,0,0,0],["v109","v110",0,0,0,0],["v80","v115",0,0,0,0],["v79","v80",1,0,0,0],["v57","v58",0,0,0,0],["v9","v106",0,0,0,0],["v9","v84",0,0,0,0],["v86","v116",0,0,0,0],["v86","v117",0,0,0,0],["v116","v117",0,0,0,0],["v45","v117",0,0,0,0],["v117","v121",0,0,0,0],["v121","v122",0,0,0,0],["bloqueK","v126",0,0,0,0],["v101","v126",0,0,0,0],["v126","v127",0,0,0,0],["v128","v129",0,0,0,0],["v129","v130",0,0,0,0],["v101","v131",0,0,0,0],["bloqueK","v101",0,0,0,0],["v25","v132",0,0,0,0],["v132","v133",0,0,0,0],["v132","v134",0,0,0,0],["v12","capilla",0,0,0,0],["v63","v135",0,0,0,0],["v19","v135",0,0,0,0],["v11","v12",0,0,0,0],["v45","v116",0,0,0,0],["v137","v138",0,0,0,0],["v137","v139",0,0,0,0],["v137","v140",0,0,0,0],["v141","v142",0,0,0,0],["v88","v142",0,0,0,0],["v92","v93",0,0,0,0],["v15","v16",0,0,0,0],["v140","v143",0,0,0,0],["v140","v144",0,0,0,0],["v130","v145",0,0,0,0],["bloqueD","v130",0,0,0,0],["v146","v147",0,0,0,0],["v26","v147",0,0,0,0],["v151","v152",0,0,0,0],["v29","v30",0,0,0,0],["v153","v154",1,0,0,0],["v154","v155",1,0,0,0],["biblioteca","v156",0,0,0,0],["v156","v157",0,0,0,0],["v158","v159",0,0,0,0],["v158","v160",0,0,0,0],["v161","v162",0,0,0,0],["v162","v163",0,0,0,0],["v163","v164",0,0,0,0],["v96","v107",0,0,0,0],["v30","v66",1,0,0,0],["v65","v66",0,0,0,0],["v165","v166",0,0,0,0],["v157","v165",0,0,0,0],["v165","v167",0,0,0,0],["v40","v168",0,0,0,0],["v40","v169",0,0,0,0],["v40","v170",0,0,0,0],["bloqueD","v145",0,0,0,0],["v21","v22",0,0,0,0],["v21","v44",0,0,0,0],["v171","v172",0,0,0,0],["v171","v173",0,0,0,0],["v171","v174",0,0,0,0],["v174","v175",0,0,0,0],["v175","v176",0,0,0,0],["v84","v106",0,0,0,0],["v110","v177",0,0,0,0],["v110","v178",0,0,0,0],["v160","v178",0,0,0,0],["v68","v179",0,0,0,0],["v68","v69",0,0,0,0],["v72","v102",0,0,0,0],["v48","v102",0,0,0,0],["v168","v169",0,0,0,0],["v176","v179",0,0,0,0],["v176","v181",0,0,0,0],["v172","v173",0,0,0,0],["v173","v182",0,0,0,0],["v79","v81",0,0,0,0],["v81","v183",0,0,0,0],["v183","v184",0,0,0,0],["v185","v186",0,0,0,0],["v185","v187",0,0,0,0],["v1","v188",0,0,0,0],["v188","v189",0,0,0,0],["v188","v190",1,0,0,0],["v191","v192",0,0,0,0],["v127","v191",0,0,0,0],["v191","v193",0,0,0,0],["v167","v194",0,0,0,0],["v167","v195",0,0,0,0],["v182","v196",0,0,0,0],["v196","v197",0,0,0,0],["v197","v198",0,0,0,0],["v181","v198",0,0,0,0],["v172","v182",0,0,0,0],["v159","v160",0,0,0,0],["v33","v199",0,0,0,0],["v33","v200",0,0,0,0],["v89","v90",0,0,0,0],["v17","v201",0,0,0,0],["v17","v200",0,0,0,0],["v202","v203",0,0,0,0],["v202","v204",0,0,0,0],["v204","v205",0,0,0,0],["v164","v202",0,0,0,0],["v107","v134",0,0,0,0],["v200","v201",0,0,0,0],["v104","v143",0,0,0,0],["v104","v144",0,0,0,0],["v25","v134",0,0,0,0],["v133","v134",0,0,0,0],["v19","v63",0,0,0,0],["v138","v139",0,0,0,0],["v93","v139",0,0,0,0],["v48","v72",0,0,0,0],["v144","v209",0,0,0,0],["v209","v210",0,0,0,0],["v210","bloqueJ",0,0,0,0],["v211","v212",0,0,0,0],["v143","v144",0,0,0,0],["v213","v214",0,0,0,0],["v82","v214",0,0,0,0],["v51","v53",0,0,0,0],["v57","v201",0,0,0,0],["v138","v215",0,0,0,0],["v35","v69",0,0,0,0],["v51","v216",0,0,0,0],["v51","v52",0,0,0,0],["v168","v170",0,0,0,0],["v170","v217",0,0,0,0],["v216","v217",0,0,0,0],["v88","v218",0,0,0,0],["v195","v219",0,0,0,0],["v166","v220",0,0,0,0],["v220","v221",0,0,0,0],["v157","v166",0,0,0,0],["v164","v203",0,0,0,0],["v152","v203",0,0,0,0],["v194","v195",0,0,0,0],["v186","v187",0,0,0,0],["v189","v222",0,0,0,0],["v207","v222",0,0,0,0],["v1","v189",0,0,0,0],["v127","v192",0,0,0,0],["v61","v82",0,0,0,0],["v179","v181",0,0,0,0],["v133","v223",0,0,0,0],["v177","v206",0,0,0,0],["v131","v161",0,0,0,0],["v96","v148",0,0,0,0],["v151","v224",0,0,0,0],["atrio","v90",0,0,0,0],["v18","v20",0,0,0,0],["v59","v194",0,0,0,0],["v69","v184",0,0,0,0],["v85","v218",0,0,0,0],["v10","v199",0,0,0,0],["v34","v141",0,0,0,0],["v71","v212",1,0,0,0],["v97","v214",0,0,0,0],["v95","v109",1,0,0,0],["bloqueJ","bloqueG1",0,0,0,0],["v211","bloqueG1",0,0,0,0],["v223","bloqueG2",0,0,0,0],["v224","bloqueG2",0,0,0,0],["v148","v225",0,0,0,0],["v149","v225",0,0,0,0],["agora","v225",0,0,0,0],["v206","coliseoE",0,0,0,0],["v207","coliseoE",0,0,0,0],["v109","bloqueB",0,0,0,0],["v108","bloqueC",0,0,0,0],["bloqueB","bloqueC",0,0,0,0],["v7","bloqueF",0,0,0,0],["v208","bloqueF",0,0,0,0],["v111","v226",0,0,0,0],["v112","v226",0,0,0,0],["bloqueL","v226",0,0,0,0],["bloqueD","ascD",0,10,0,0],["ascD","paraninfo",0,30,1,0],["bloqueD","paraninfo",1,30,0,0],["v47","bloqueG1",0,0,0,0],["v168","v120",1,0,0,0],["v74","v190",1,0,0,0],["cajas","bloqueG1",0,6,0,0],["coliseoE","coliseo",0,14,0,0],["cafeO","v23",0,1,0,0],["v77","v149",0,0,0,0],["v212","v151",0,0,0,0],["umwdxtu8s","v56",0,0,0,0],["v63","umwdxtu8s",0,0,0,0],["umwdxtu8s","v46",0,0,0,0],["v46","umwdxudw1",0,0,0,0],["umwdxudw1","v42",0,0,0,0],["v173","umwdxusw4",0,0,0,0],["umwdxusw4","umwdxuvce",0,0,0,0],["umwdxuvce","umwdxuyk1",0,0,0,0],["umwdxuyk1","umwdxv17d",0,0,0,0],["v64","v73",0,0,0,0],["v73","umwdxve7b",0,0,0,0],["umwdxve7b","umwdxvg9r",1,0,0,0],["umwdxvg9r","umwdxvkd1",1,0,0,0],["umwdxvkd1","umwdxvmjr",0,0,0,0],["umwdxvmjr","v155",1,0,0,0],["umwdxwlm5","v193",0,0,0,0],["v193","umwdxvmjr",1,0,0,0],["v153","umwdxy0tr",1,0,0,0],["umwdxy0tr","umwdxy5d7",0,0,0,0],["umwdxy5d7","umwdxy7lz",1,0,0,0],["umwdxy7lz","v127",0,0,0,0],["v218","umwdxudw1",0,0,0,0],["umwdxudw1","v85",0,0,0,0],["v85","umwdxy5d7",0,0,0,0],["umwdxz73a","v62",1,0,0,0],["umwdxz73a","umwdxzsoi",0,0,0,0],["umwdxzsoi","v58",1,0,0,0],["v58","v205",1,0,0,0],["v205","v49",0,0,0,0],["umwdy0fid","v180",1,0,0,0],["v208","umwdy0fid",0,0,0,0],["umwdy1hmi","v111",1,0,0,0],["umwdy1hmi","v214",1,0,0,0],["biblioteca","v213",0,0,0,0],["v32","umwdy2fez",0,0,0,0],["umwdy2fez","biblioteca",0,0,0,0],["umwdy2fez","v186",0,0,0,0],["v186","v120",0,0,0,0]],"rampas":[[1050,728],[799.2,573.5],[859.2,292.3],[735.4,771.6],[900.3,583.8],[1042.1,542.4],[839.7,632.4],[800.2,678.8],[576.8,631.9],[883,488.9]]};
+/* Georreferencia: semejanza plano(px) -> GPS ajustada por mínimos cuadrados a las 4 esquinas de 14 bloques que calibró Santi (error medio 4,6 m). El plano oficial está girado unos 27° respecto al norte y mide 0,173 m por px. */
+const GEO={a:.15455966,b:.07867237,c:-91.746048,d:145.532513,la:-16.5228,ln:-68.1118,mx:106722,my:110540},GK=GEO.a*GEO.a+GEO.b*GEO.b,GS=Math.sqrt(GK),NROT=Math.atan2(-GEO.b,GEO.a)*180/Math.PI,
+px2ll=(x,y)=>[+(GEO.la+(-GEO.b*x-GEO.a*y+GEO.d)/GEO.my).toFixed(7),+(GEO.ln+(GEO.a*x-GEO.b*y+GEO.c)/GEO.mx).toFixed(7)],
+ll2px=(la,ln)=>{const e=(ln-GEO.ln)*GEO.mx-GEO.c,n=(la-GEO.la)*GEO.my-GEO.d;return[(GEO.a*e-GEO.b*n)/GK,-(GEO.b*e+GEO.a*n)/GK]};
+/* Qué hay en cada piso (n: de abajo hacia arriba, índice 0 = PB; x: está en el bloque pero no sabemos el piso). Viene de la maqueta 3D y de la lista de dependencias de Santi. */
+const NIV={
+coliseo:{n:[['PB','Coliseo U.C.B.','Departamento de Deportes','Club "U" Católica','Sala de Danza']]},
+bloqueB:{n:[['PB','Departamento de Cultura y Arte','Extensión Cultural'],['P1','Sala de Literatura','Unidad de Auditoría Interna']]},
+bloqueC:{asc:1,n:[['PB','Aulas C001 – C004','Laboratorios de Ingeniería','Laboratorios de Computación','Redes y soporte'],['P1','Oficinas C101 – C105','Sala de Docentes'],['P2','Aulas C201 – C204'],['P3','Aulas C301 – C304'],['P4','Aulas C401 – C404']]},
+bloqueD:{asc:1,x:['Laboratorio CINAES','Centro de Cómputo'],n:[['PB','Aulas D1 – D6','Central Telefónica','Servicio y Mantenimiento'],['P1','Aulas D7 – D12','Sala de Docentes (Ingeniería)','Sala de Docentes (Ciencias Básicas)'],['P2','Aulas D13 – D18','Auditorio 2','Laboratorio de Computación 4'],['P3','Aulas D19 – D24','Auditorio 3','Laboratorio de Redes 5'],['P4','Aulas D25 – D30','Auditorio 4','Laboratorio de Psicofisiología'],['P5','Paraninfo U.C.B.','Capilla "San Pablo"']]},
+bloqueF:{n:[['PB','Registro Académico (Kardex y Registros)','Mediador Universitario','Decanatura de Derecho y Ciencias Políticas','Carrera de Derecho','Carrera de Ciencias Políticas','Salas de Docentes 1 y 2','Salas de Reuniones 1, 2 y 3','Centro de Estudios Constitucionales'],['P1','Aulas F1 – F3','Aulas F8 – F10','Instituto para la Democracia','Sala de Investigación','Laboratorio 1'],['P2','Aulas F4 – F6','Aulas F11 – F13','Laboratorio 7'],['P3','Aulas F7A, F7B, F7C y F7D','Oficinas de Postgrado de Derecho y Ciencias Políticas']]},
+bloqueG2:{n:[['PB','Auditorio Principal','Aulas G','Centro de Sistemas'],['P1','Aulas G','Carreras de la Facultad de Ingeniería'],['P2','Decanatura de la Facultad de Ingeniería','Oficinas de Postgrado de Ingeniería'],['P3','Laboratorios de Postgrado']]},
+bloqueG1:{n:[['PB','Caja – Tesorería','Aulas G'],['P1','Escuela de la Producción y la Competitividad (ePC)'],['P2','Servicios de atención psicológica y salud mental']]},
+bloqueH:{n:[['PB','Cafetería'],['P1','Comedor']]},
+biblioteca:{n:[['PB','Biblioteca · recepción y préstamo'],['P1','Salas de lectura'],['P2','Salas de estudio en grupo'],['P3','Hemeroteca y archivo']]},
+capilla:{n:[['PB','Capilla "El Arca"']]},
+bloqueJ:{x:['Convenios e Intercambios'],n:[['PB','Internacionalización Académica y Cooperación Global','Vicerrectorado Académico Nacional']]},
+bloqueK:{x:['Cato Voluntarios'],n:[['PB','Oficina de Informaciones','Departamento de Admisión y Orientación','Caja','Centro Médico U.C.B.','Departamento Marketing y Comunicación','Pastoral Universitaria','Carrera de Administración de Empresas','Carrera de Ingeniería Comercial','Carrera de Marketing Digital']]},
+bloqueL:{x:['Dirección Administrativa Financiera'],n:[['PB','Rectorado de Sede'],['P1','Dirección Académica de Sede']]}};
+/* Punto del mapa -> bloque de la maqueta; letra de aula -> punto; bloque de eventos.json -> punto */
+const PT2B={coliseo:'A',coliseoE:'A',bloqueB:'B',bloqueC:'C',bloqueD:'D',ascD:'D',paraninfo:'D',bloqueF:'F',bloqueG1:'G',bloqueG2:'G',cajas:'G',bloqueH:'H',cafeO:'H',biblioteca:'I',bloqueJ:'J',bloqueK:'K',bloqueL:'L',capilla:'CAP'},
+AUL={A:'coliseo',B:'bloqueB',C:'bloqueC',D:'bloqueD',F:'bloqueF',G:'bloqueG2',H:'bloqueH',I:'biblioteca',J:'bloqueJ',K:'bloqueK',L:'bloqueL'},
+BQ2P={A:'coliseo',B:'bloqueB',C:'bloqueC',D:'bloqueD',F1:'bloqueF',F2:'bloqueF',G1:'bloqueG1',G2:'bloqueG2',H:'bloqueH',I:'biblioteca',J:'bloqueJ',K:'bloqueK',L:'bloqueL',CAP:'capilla',AGORA:'agora',ATRIO:'atrio'},
+/* Bloques de la maqueta 3D: [clave, punto que abre al tocarlo, rótulo, contorno (n.º de bloque dentro de FON o px del plano), opciones] */
+B3=[['A','coliseo','A',8,{k:2.4}],['B','bloqueB','B',7],['C','bloqueC','C','855,160 1135,154 1145,250 887,248 882,200'],['D','bloqueD','D',0,{col:0xb9573f,t:0xa85f49}],['F','bloqueF','F',6],['G','bloqueG2','G',5],['H','bloqueH','H','849,517 951,454 972,483 876,542',{col:0xf0eee8,t:0x97a0b0,cl:1}],['I','biblioteca','I',4],['J','bloqueJ','J','505,638 578,632 582,694 510,698',{base:2.6}],['K','bloqueK','K','580,631 707,644 747,679 724,729 628,737 582,683',{t:0xc9ced8,k:.8}],['L','bloqueL','L',2],['CAP','capilla','Capilla','953,669 950,681 943,690 932,695 920,695 909,690 902,681 899,669 902,657 909,648 920,643 932,643 943,648 950,657',{col:0xf0eee8,t:0x8f2f28,cl:1,k:.9}]],
+DIA=['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+let AG=[],AGI='',M3=0;   // eventos de la Agenda Universitaria; fecha de su última lectura; estado de la maqueta 3D (0 sin cargar, 1 cargando, 2 lista, -1 sin WebGL)
+const EVS=()=>AG.length?[...AG,...D.eventos.filter(e=>!e.ej)]:D.eventos,nomN=(id,i)=>NIV[id]?.n[i]?.[0]||'PB',norm=s=>String(s||'').normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase(),
+is3=()=>S.v3&&!S.ed&&M3===2,js=u=>new Promise((ok,no)=>{const e=document.createElement('script');e.src=u;e.onload=ok;e.onerror=no;document.head.appendChild(e)}),
+dpEv=b=>{const e=b.dataset.ev&&EVS().find(x=>x.id===b.dataset.ev);return e&&e.ag&&e.punto?{piso:e.piso||0,lugar:e.lugar}:null},hor=()=>store.get('.h')||[];
+/* eventos.json (lo genera actualizar_agenda.py cada hora) -> formato interno. La agenda no publica hora de fin: esos eventos quedan como "Hoy" hasta la medianoche (sf). Bolivia es UTC-4 todo el año. */
+function agenda(d){if(!d||!Array.isArray(d.eventos))return;AGI=d.actualizado||'';AG=d.eventos.map(e=>{const ult=new Date(`${e.hasta||e.fecha}T23:59:00-04:00`),ini=new Date(`${e.fecha}T${e.hora||'00:00'}:00-04:00`),f=e.hora&&e.fin?new Date(`${e.hasta||e.fecha}T${e.fin}:00-04:00`):null,ok=f&&f>ini;
+  let p=BQ2P[e.bloque]||'';if(p==='bloqueD'&&/paraninfo/i.test(e.lugar||''))p='paraninfo';
+  return{id:String(e.id),nombre:(e.postergado?'Postergado: ':'')+e.titulo,punto:p,inicio:ini.toISOString(),fin:(ok?f:ult).toISOString(),desc:[e.tipo,e.organizador&&'Organiza: '+e.organizador.trim()].filter(Boolean).join(' · '),lugar:e.lugar||'',piso:p==='paraninfo'?0:e.piso||0,ag:1,...(e.hora?(ok?{}:{sf:1}):{dia:true})}}).filter(e=>!isNaN(new Date(e.inicio))&&!isNaN(new Date(e.fin)))}
+/* "D17", "c-201", "F7A" -> bloque y piso, según los rangos de aulas de NIV */
+function aula(v){const m=norm(v).replace(/[\s-]/g,'').toUpperCase().match(/^([A-L])(\d{1,3})([A-D]?)$/);if(!m)return null;const id=AUL[m[1]],nv=id&&NIV[id];if(!nv)return null;const num=+m[2],tk=m[1]+m[2]+m[3];let piso=0;
+ nv.n.forEach((l,i)=>l.slice(1).forEach(it=>{const u=it.toUpperCase().replace(/[^A-Z0-9]+/g,' '),r=u.match(new RegExp('\\b'+m[1]+'0*(\\d+) '+m[1]+'0*(\\d+)\\b'));if((r&&num>=+r[1]&&num<=+r[2])||u.split(' ').some(w=>w.startsWith(tk)&&/^[A-D]?$/.test(w.slice(tk.length))))piso=i}));
+ return{id,piso,t:'Aula '+tk}}
+function busca(q){const s=norm(q).trim();if(s.length<2)return[];const out=[],seen=new Set(),add=(id,piso,t)=>{const k=id+'|'+t;if(PT[id]&&!seen.has(k)){seen.add(k);out.push({id,piso,t})}},a=aula(q);if(a)add(a.id,a.piso,a.t);
+ for(const id in NIV){NIV[id].n.forEach((l,i)=>l.slice(1).forEach(it=>{if(norm(it).includes(s))add(id,i,it)}));(NIV[id].x||[]).forEach(it=>{if(norm(it).includes(s))add(id,null,it)})}
+ for(const p of D.puntos)if(norm(p.nombre).includes(s)&&!out.some(o=>o.id===p.id))add(p.id,null,p.nombre);return out.slice(0,8)}
+function pisosHtml(id){const nv=NIV[id];if(!nv)return'';return`<p class="eb">Qué hay en cada piso${nv.asc?' · tiene ascensor':''}</p><ul class="niv">${nv.n.map((l,i)=>`<li><b>${l[0]}</b><span>${l.slice(1).map(esc).join(' · ')}</span>${i&&id!==S.origen?`<button data-act="irp" data-id="${esc(id)}" data-i="${i}" aria-label="Cómo llegar a ${l[0]}">Ir</button>`:'<i></i>'}</li>`).reverse().join('')}</ul>${nv.x?`<p class="muted">También en este bloque: ${nv.x.map(esc).join(' · ')}.</p>`:''}`}
+function clNiv(){const b=$('#clB'),p=$('#clP');if(b&&p)p.innerHTML=NIV[b.value].n.map((l,i)=>`<option value="${i}">${l[0]}</option>`).join('')}
+/* Próxima clase del horario y hora de salida: camino desde donde estás + 20 s por piso + 5 min de margen */
+function proxC(){const now=new Date();let m=null;for(const c of hor()){if(!PT[c.punto])continue;const[h,mi]=c.hora.split(':').map(Number),d=new Date(now);d.setHours(h,mi,0,0);d.setDate(d.getDate()+((c.dia-d.getDay()+7)%7));if(d<=now)d.setDate(d.getDate()+7);if(!m||d<m.ini)m={c,ini:d}}
+ if(!m)return null;const r=ruta(org(),m.c.punto,S.acc);m.min=Math.max(1,Math.ceil((r?r.min:5)+m.c.piso/3));m.sal=new Date(m.ini-(m.min+5)*6e4);return m}
+/* Maqueta 3D: se carga solo al pedirla (three.js pesa 600 KB) y queda en caché para usarla sin internet */
+async function m3load(){if(M3)return;M3=1;try{await js('lib/three.min.js');await js('lib/OrbitControls.js');await js('maqueta3d.js');
+  const P=s=>s.split(' ').map(q=>{const[x,y]=q.split(',');return[(x-370)*GS,(y-125)*GS]}),BK=FON.filter(f=>f[0]==='blk'||f[0]==='red');
+  M3=M3D.init({W:845*GS,H:741*GS,img:'plano-ucb.jpg?v=2',tap:id=>punto(id),plazas:[['Ágora',375*GS,302*GS],['Atrio',279*GS,672*GS]],
+   blocks:B3.map(([k0,pt,lab,src,o])=>({k0,pt,lab,n:NIV[pt].n.map(l=>l[0]),poly:P(typeof src==='number'?BK[src][2]:src),...o}))})?2:-1}catch(e){M3=-1}
+ if(M3<0)toast('Este equipo no pudo abrir la maqueta 3D. Te mostramos la vista 3D simple.');if(S.view==='mapa')render(true)}
+function m3sync(){const xy=p=>PR.xy(p.lat,p.lng),ev={},ea=evAhora();for(const id in ea){const k=PT2B[id];if(k&&(ea[id]==='soon'||!ev[k]))ev[k]=ea[id]}
+ M3D.update({ruta:R&&R.ids.length>1?R.ids.map(i=>xy(PT[i])):null,yo:xy(yo()),ev});
+ if(S.pz){M3D.pisos(S.pz,null,'');S.pz=null;return}
+ const k=S.destino&&PT2B[S.destino],pi=S.destino==='paraninfo'?5:S.dp?.piso,key=k&&pi?k+'|'+pi:'';if(key!==S.m3k){S.m3k=key;if(key)M3D.pisos(k,pi,S.destino==='paraninfo'?'Paraninfo':S.dp?.lugar||'')}}
+function ejemplo(){
+ const now=Date.now(),ll=(x,y)=>{const[lat,lng]=px2ll(x,y);return{lat,lng}},T=m=>new Date(Math.round((now+m*6e4)/3e5)*3e5).toISOString(),tl=px2ll(370,125),
+ OPT={entrada:{info:'Av. 14 de Septiembre.'},cajas:{info:'Caja y Tesorería funcionan en el Bloque G. La puerta exacta está por confirmar.'},bloqueH:{info:'La cafetería (Bloque H) tiene dos entradas: norte y oeste.'},cafeO:{info:'Segunda entrada de la cafetería (Bloque H).'},coliseoE:{info:'Puerta de acceso al Coliseo (Bloque A).'},paraninfo:{piso:5,info:'Bloque D, piso 5. Se sube por el ascensor o las gradas del bloque.'},capilla:{info:'Capilla El Arca, según el plano oficial.'}};
+ return{ejemplo:true,plano:{src:'plano-ucb.jpg?v=2',lat:tl[0],lng:tl[1],w:+(845*GS).toFixed(2),h:+(741*GS).toFixed(2),v:3},
+  fondo:FON.map(([t,z,s])=>({t,z,p:s.split(' ').map(q=>{const[x,y]=q.split(',');return px2ll(+x,+y)})})),rampas:USR.rampas.map(([x,y])=>ll(x,y)),
+  puntos:PLN.map(([id,nombre,corto,tipo,sig,x,y])=>({id,nombre,corto,tipo,sig,...ll(x,y),...OPT[id]})),
+  vias:USR.vias.map(([id,x,y])=>({id,...ll(x,y)})),
+  caminos:USR.caminos.map(([de,a,e,m,asc,rmp])=>({de,a,...(e?{esc:true}:{}),...(m?{m}:{}),...(asc?{asc:true}:{}),...(rmp?{rmp:true}:{})})),
+ eventos:[
+  {id:'techmech',ej:1,nombre:'TECH MECH 2026 · Hackathon',punto:'coliseo',inicio:T(-135),fin:T(240),desc:'Hackathon de Ingeniería Mecatrónica, parte de MECAFEST. Horario de ejemplo.'},
+  {id:'defensas',ej:1,nombre:'Defensas de proyectos de grado',punto:'bloqueF',inicio:T(-70),fin:T(20),desc:'Evento de ejemplo.'},
+  {id:'mecagala',ej:1,nombre:'Meca Gala',punto:'paraninfo',inicio:T(200),fin:T(380),desc:'Gala de MECAFEST en el Paraninfo, Bloque D, piso 5. Horario de ejemplo.'},
+  {id:'abandono',nombre:'Último día para abandonar asignaturas',punto:'',...Df(11,20),desc:'Plazo para abandono parcial o total, con cuotas al día. Calendario académico 2-2026.'},
+  {id:'ingles',nombre:'Examen del idioma inglés',punto:'',...Df(11,21),desc:'Último examen de inglés del semestre. Confirma hora y aula en Secretaría.'},
+  {id:'pago5',nombre:'Vence el 5to pago del semestre',punto:'cajas',...Df(12,4),desc:'Pago de derechos académicos del semestre 2-2026. Cajas por confirmar.'},
+  {id:'alumni',nombre:'Reencuentro Alumni UCB · 60 años',punto:'agora',inicio:Dt(10,23,18),fin:Dt(10,23,23,59),desc:'Noche de networking y celebración para graduados.'},
+  {id:'crue',nombre:'Posesión del nuevo CRUE',punto:'',...Df(10,21),desc:'Posesión del Comité Representante Universitario Estudiantil.'},
+  {id:'occ',nombre:'Premiación Olimpiada Católica de Ciencias',punto:'',...Df(10,22),desc:'XIX OCC 2026: reconocimiento a 630 estudiantes de secundaria.'},
+  {id:'ajedrez',nombre:'Torneo de Ajedrez Interuniversidades',punto:'',...Df(10,29),desc:'La UCB se coronó campeona en el Estadio Hernando Siles.'},
+  {id:'libros',nombre:'Dos libros, una vida (5ª edición)',punto:'',...Df(11,5),desc:'Homenaje a tres trayectorias bolivianas.'},
+  {id:'aniv-iq',nombre:'Aniversario de Ing. Química y Bioquímica',punto:'',...Df(11,6),desc:'Actividades académicas y de integración.'},
+  {id:'iot',nombre:'IoT Race 2026',punto:'',...Df(11,10),desc:'Jornada de innovación con 30 estudiantes de secundaria. Telecomunicaciones.'}]}}
+const Dt=(m,d,h=0,mi=0)=>new Date(2026,m-1,d,h,mi).toISOString(),Df=(m,d)=>({inicio:Dt(m,d,0,0),fin:Dt(m,d,23,59),dia:true});
+const valido=d=>d&&Array.isArray(d.puntos)&&d.puntos.length>1&&d.puntos.every(p=>p.id&&isFinite(p.lat)&&isFinite(p.lng))&&Array.isArray(d.caminos)&&Array.isArray(d.eventos);
+
+const dSeg=(p,a,b)=>{const k=Math.cos(rad(a.lat)),bx=(b.lat-a.lat)*110540,by=(b.lng-a.lng)*111320*k,px=(p.lat-a.lat)*110540,py=(p.lng-a.lng)*111320*k,l=bx*bx+by*by||1,t=Math.max(0,Math.min(1,(px*bx+py*by)/l));return Math.hypot(px-t*bx,py-t*by)};
+function index(){
+ PT=Object.fromEntries(D.puntos.map(p=>[p.id,p]));for(const v of D.vias||[])PT[v.id]={id:v.id,nombre:'Camino',tipo:'via',lat:v.lat,lng:v.lng,v:1};ADJ={};
+ for(const c of D.caminos){const a=PT[c.de],b=PT[c.a];if(!a||!b)continue;const m=c.m??Math.max(1,Math.round(hav(a,b))),rp=!!c.rmp||(!!c.esc&&(D.rampas||[]).some(q=>dSeg(q,a,b)<6)),e={m,esc:!!c.esc,asc:!!c.asc,rp};(ADJ[a.id]??=[]).push({to:b.id,...e});(ADJ[b.id]??=[]).push({to:a.id,...e})}
+ PR={w:845*GS,h:741*GS,xy:(lat,lng)=>{const[x,y]=ll2px(lat,lng);return[(x-370)*GS,(y-125)*GS]},inv:(x,y)=>px2ll(370+x/GS,125+y/GS)};
+ const[cla,cln]=px2ll(792,495);D.centro={lat:cla,lng:cln};D.radio=Math.max(...D.puntos.map(p=>hav(p,D.centro)))+150;
+ if(!PT[S.origen])S.origen=D.puntos[0].id;if(S.destino&&!PT[S.destino])S.destino=null;V=null;calc()}
+
+/* Dijkstra sobre el grafo de caminos; acc=true descarta tramos con gradas */
+function ruta(o,d,acc){
+ if(!PT[o]||!PT[d])return null;const dist={[o]:0},prev={},H=[[0,o]],w=e=>e.m*(e.esc&&!(acc&&e.rp)?1.6:1),
+ push=x=>{H.push(x);let i=H.length-1;while(i){const p=(i-1)>>1;if(H[p][0]<=H[i][0])break;[H[p],H[i]]=[H[i],H[p]];i=p}},
+ pop=()=>{const t=H[0],l=H.pop();if(H.length){H[0]=l;let i=0;for(;;){const a=2*i+1,b=a+1;let m=i;if(a<H.length&&H[a][0]<H[m][0])m=a;if(b<H.length&&H[b][0]<H[m][0])m=b;if(m===i)break;[H[m],H[i]]=[H[i],H[m]];i=m}}return t};
+ while(H.length){const[c,u]=pop();if(c>dist[u])continue;if(u===d)break;for(const e of ADJ[u]||[]){if(acc&&e.esc&&!e.rp)continue;const nd=c+w(e);if(nd<(dist[e.to]??Infinity)){dist[e.to]=nd;prev[e.to]={de:u,e};push([nd,e.to])}}}
+ if(dist[d]==null)return null;const ids=[d],tramos=[];let c=d;while(c!==o){const p=prev[c];tramos.unshift({de:p.de,a:c,m:p.e.m,esc:p.e.esc&&!(acc&&p.e.rp),rmp:acc&&p.e.esc&&p.e.rp,asc:p.e.asc});c=p.de;ids.unshift(c)}
+ const legs=[],ref=new Set();let q=null;for(const t of tramos){q??={de:t.de,m:0,esc:false,rmp:false,asc:false,min:0};q.m+=t.m;q.esc||=t.esc;q.rmp||=t.rmp;q.asc||=t.asc;q.min+=tmin(t);if(!PT[t.a].v){q.a=t.a;legs.push(q);q=null}else if(q.m>=30&&t.a!==d){const lm=D.puntos.filter(p=>p.tipo!=='paso'&&p.id!==o&&p.id!==d&&!ref.has(p.id)).map(p=>[p,hav(p,PT[t.a])]).sort((x,y)=>x[1]-y[1])[0];if(lm&&lm[1]<22){ref.add(lm[0].id);q.a=t.a;q.ref=lm[0];legs.push(q);q=null}}}
+ return{ids,tramos,legs,m:tramos.reduce((s,t)=>s+t.m,0),min:tramos.reduce((t,x)=>t+tmin(x),0)}}
+const tmin=t=>t.m/VEL*(t.esc?1.6:1),fm=r=>r.ids.length<2?'estás aquí':`${Math.round(r.m)} m · ${Math.max(1,Math.ceil(r.min))} min`;
+function calc(){R=S.destino?ruta(org(),S.destino,S.acc):null;if(R&&S.dp?.piso)R.min+=S.dp.piso/3;S.arDirty=true}
+function dest(id,dp){S.destino=id||null;S.dp=dp||null;S.lleg=null;calc()}
+const org=()=>S.modo==='gps'&&S.gpsOK&&S.nodo&&PT[S.nodo]?S.nodo:S.origen;
+const yo=()=>S.modo==='gps'&&S.gpsOK?S.gps:PT[S.origen];
+const nodoCerca=g=>{let b=null,bd=1e9;for(const id in ADJ){const q=PT[id];if(!q)continue;const d=hav(g,q);if(d<bd){bd=d;b=id}}return b};
+const cerca=g=>D.puntos.reduce((b,p)=>hav(g,p)<hav(g,b)?p:b).id;
+
+const dur=ms=>{const m=Math.max(1,Math.round(ms/6e4));if(m<60)return m+' min';const h=Math.floor(m/60),r=m%60;if(h<24)return h+' h'+(r?' '+r+' min':'');return Math.floor(h/24)+' d'+(h%24?' '+h%24+' h':'')};
+function est(e,t=Date.now()){const i=+new Date(e.inicio),f=+new Date(e.fin);if(t>=f)return{k:'fin',pill:'Finalizó',txt:'hace '+dur(t-f)};if(e.sf)return t>=i?{k:'live',pill:'Hoy',txt:'empezó a las '+fH.format(new Date(i))}:{k:'next',pill:'Próximo',txt:'empieza en '+dur(i-t)};if(e.dia)return t>=i?{k:'live',pill:'Hoy',txt:e.ag?'todo el día':'vence hoy'}:{k:'next',pill:'Próximo',txt:'en '+dur(i-t)};if(t>=i)return f-t<=18e5?{k:'soon',pill:'Por terminar',txt:'termina en '+dur(f-t)}:{k:'live',pill:'En curso',txt:'termina en '+dur(f-t)};return{k:'next',pill:'Próximo',txt:'empieza en '+dur(i-t)}}
+function cuando(e){const i=new Date(e.inicio),f=new Date(e.fin);if(e.dia)return fD.format(i);const h=new Date().setHours(0,0,0,0),d=Math.round((new Date(i).setHours(0,0,0,0)-h)/864e5);return(d===0?'hoy':d===1?'mañana':fD.format(i))+' '+fH.format(i)+(e.sf?'':'–'+fH.format(f))}
+function evAhora(){const o={},t=Date.now();for(const e of EVS()){if(!e.punto)continue;const k=est(e,t).k;if(k==='soon'||(k==='live'&&!o[e.punto]))o[e.punto]=k}return o}
+function abierto(p){if(!p.hor)return null;const n=new Date(),hm=n.getHours()*60+n.getMinutes(),mm=s=>{const[x,y]=s.split(':');return x*60+ +y},ok=p.hor.dias.includes(n.getDay())&&hm>=mm(p.hor.de)&&hm<mm(p.hor.a);return{ok,txt:ok?'Abierto · cierra a las '+p.hor.a:'Cerrado · atiende de '+p.hor.de+' a '+p.hor.a}}
+
+/* Mapa SVG propio: proyecta lat/lng a metros, sin teselas ni APIs */
+function vista(el,ids,pad){const xs=[],ys=[];ids.forEach(i=>{const[x,y]=PR.xy(PT[i].lat,PT[i].lng);xs.push(x);ys.push(y)});const x0=Math.min(...xs)-pad,y0=Math.min(...ys)-pad,bw=Math.max(...xs)+pad-x0,bh=Math.max(...ys)+pad-y0,cw=el.clientWidth||320,ch=el.clientHeight||320,s=Math.max(bw/cw,bh/ch),w=cw*s,h=ch*s;return{x:x0-(w-bw)/2,y:y0-(h-bh)/2,w,h}}
+
+const ED_T={camino:['Camino','Toca un lugar o punto y luego otro para unirlos (o separarlos). Toca vacío para crear un punto y seguir el trazo.'],mover:['Mover','Toca un punto y luego el lugar donde debe ir.'],via:['Vía accesible','Toca un tramo para marcarlo como vía accesible para silla de ruedas (rampa); se dibuja en azul.'],grada:['Gradas','Toca un tramo para marcarlo o quitarlo como gradas.'],rampa:['Rampa','Toca vacío para poner una rampa; toca una rampa para quitarla.'],borrar:['Borrar','Toca un tramo o un punto de camino para borrarlo.']};
+const edBar=()=>`<div class="edbar"><div class="edt">${Object.entries(ED_T).map(([k,[n]])=>`<button data-act="edT" data-t="${k}" aria-pressed="${S.ed.t===k}">${n}</button>`).join('')}</div><p>${ED_T[S.ed.t][1]}</p><div class="eda"><button data-act="edUndo">↶ Deshacer</button><button data-act="edCopy">Copiar mis cambios</button><button class="ok" data-act="edOff">Listo</button></div></div>`;
+function edSnap(){S.ed.h.push(JSON.stringify({v:D.vias||[],c:D.caminos,r:D.rampas||[],p:D.puntos.map(p=>[p.id,p.lat,p.lng])}));if(S.ed.h.length>40)S.ed.h.shift()}
+function edRestore(s){const o=JSON.parse(s);D.vias=o.v;D.caminos=o.c;D.rampas=o.r;for(const[i,la,ln]of o.p){const p=D.puntos.find(q=>q.id===i);if(p){p.lat=la;p.lng=ln}}}
+function edCommit(){const c=V?PR.inv(V.x,V.y):null;store.set('.d',D);index();if(c&&V){[V.x,V.y]=PR.xy(c[0],c[1])}if(S.ed.sel&&!PT[S.ed.sel])S.ed.sel=null;R=S.destino&&S.origen?ruta(org(),S.destino,S.acc):null;dibuja()}
+function edClick(e){const sv=$('#map'),q=sv.getBoundingClientRect(),x=V.x+(e.clientX-q.left)/q.width*V.w,y=V.y+(e.clientY-q.top)/q.height*V.h,r=V.w/q.width,E=S.ed,t=E.t,[la,ln]=PR.inv(x,y);
+ let nd=null,bd=18*r;for(const p of Object.values(PT)){const[px,py]=PR.xy(p.lat,p.lng),d=Math.hypot(px-x,py-y);if(d<bd){bd=d;nd=p}}
+ const seg=()=>{let be=null,bb=11*r;for(const c of D.caminos){const a=PT[c.de],b=PT[c.a];if(!a||!b)continue;const[ax,ay]=PR.xy(a.lat,a.lng),[bx,by]=PR.xy(b.lat,b.lng),dx=bx-ax,dy=by-ay,l=dx*dx+dy*dy||1,u=Math.max(0,Math.min(1,((x-ax)*dx+(y-ay)*dy)/l)),d=Math.hypot(ax+u*dx-x,ay+u*dy-y);if(d<bb){bb=d;be=c}}return be};
+ if(t==='camino'){
+  if(nd){if(E.sel&&E.sel!==nd.id){edSnap();const i=D.caminos.findIndex(c=>(c.de===E.sel&&c.a===nd.id)||(c.de===nd.id&&c.a===E.sel));if(i>=0)D.caminos.splice(i,1);else D.caminos.push({de:E.sel,a:nd.id})}E.sel=nd.id}
+  else{edSnap();const id='u'+Date.now().toString(36);(D.vias??=[]).push({id,lat:la,lng:ln});if(E.sel)D.caminos.push({de:E.sel,a:id});E.sel=id}}
+ else if(t==='mover'){if(nd&&!E.sel){E.sel=nd.id}else if(E.sel){edSnap();const m=D.vias?.find(v=>v.id===E.sel)||D.puntos.find(p=>p.id===E.sel);if(m){m.lat=+la.toFixed(6);m.lng=+ln.toFixed(6)}E.sel=null}}
+ else if(t==='grada'){const c=seg();if(!c)return;edSnap();if(c.esc)delete c.esc;else{c.esc=true;delete c.rmp}}
+ else if(t==='via'){const c=seg();if(!c)return;edSnap();if(c.rmp)delete c.rmp;else{c.rmp=true;delete c.esc}}
+ else if(t==='rampa'){const rp=D.rampas??=[];let k=-1,bb=16*r;rp.forEach((p,i)=>{const[px,py]=PR.xy(p.lat,p.lng),d=Math.hypot(px-x,py-y);if(d<bb){bb=d;k=i}});edSnap();if(k>=0)rp.splice(k,1);else rp.push({lat:+la.toFixed(6),lng:+ln.toFixed(6)})}
+ else if(t==='borrar'){if(nd&&nd.v){edSnap();D.vias=D.vias.filter(v=>v.id!==nd.id);D.caminos=D.caminos.filter(c=>c.de!==nd.id&&c.a!==nd.id)}else if(nd)return toast('Los lugares no se borran; muévelos con Mover.');else{const c=seg();if(!c)return;edSnap();D.caminos.splice(D.caminos.indexOf(c),1)}}
+ edCommit()}
+const K3=.56;
+function mapa(sv,v,o={}){
+ if(!sv)return;const r=v.w/(sv.clientWidth||320),evp=evAhora(),n=x=>x.toFixed(1),u=o.pos||yo(),d3=S.v3&&!o.mini&&!S.ed,cy0=PR.xy(D.centro.lat,D.centro.lng)[1],X=(la,ln,z=0)=>{const[x,y]=PR.xy(la,ln);return d3?[x,cy0+(y-cy0)*K3-z]:[x,y]},[ux,uy]=X(u.lat,u.lng);let h='';
+ if(!d3&&D.plano){const[ix,iy]=PR.xy(D.plano.lat,D.plano.lng);h+=`<image href="${D.plano.src}" x="${n(ix)}" y="${n(iy)}" width="${n(D.plano.w)}" height="${n(D.plano.h)}" preserveAspectRatio="none"/>`}
+ if(d3&&D.fondo){const pl=(p,z)=>p.map(q=>X(q[0],q[1],z).map(n).join(',')).join(' ');
+  for(const f of D.fondo)if(f.t==='pla'||f.t==='grn')h+=`<polygon class="f-${f.t}" points="${pl(f.p,0)}"/>`;
+ if(!o.mini&&!d3&&S.ed)for(const c of D.caminos){const a=PT[c.de],b=PT[c.a];if(!a||!b)continue;const[x1,y1]=X(a.lat,a.lng),[x2,y2]=X(b.lat,b.lng);h+=`<line class="cam${c.esc?' esc':''}${c.rmp?' rmp':''} ed" x1="${n(x1)}" y1="${n(y1)}" x2="${n(x2)}" y2="${n(y2)}" stroke-width="${n((o.mini?2:3.4)*r)}"${c.esc?` stroke-dasharray="${n(.5*r)} ${n(5*r)}"`:''}/>`}
+  const bl=D.fondo.filter(f=>f.t==='blk'||f.t==='red');
+  if(!d3)for(const f of bl)h+=`<polygon class="f-${f.t}" points="${pl(f.p,0)}"/>`;
+  else for(const f of bl.map(f=>({f,y:f.p.reduce((s,q)=>s+X(q[0],q[1])[1],0)/f.p.length})).sort((a,b)=>a.y-b.y).map(q=>q.f)){
+   const Z=(f.z||8)*1.1,B=f.p.map(q=>X(q[0],q[1],0)),T=f.p.map(q=>X(q[0],q[1],Z)),cx=B.reduce((s,q)=>s+q[0],0)/B.length,cy=B.reduce((s,q)=>s+q[1],0)/B.length;
+   for(let k=0;k<B.length;k++){const a=B[k],b=B[(k+1)%B.length];let nx=b[1]-a[1],ny=a[0]-b[0];if(nx*((a[0]+b[0])/2-cx)+ny*((a[1]+b[1])/2-cy)<0){nx=-nx;ny=-ny}
+    if(ny>0)h+=`<polygon class="w${f.t==='red'?' d':''} ${nx<0?'wl':'wr'}" points="${[a,b,T[(k+1)%B.length],T[k]].map(q=>q.map(n).join(',')).join(' ')}"/>`}
+   h+=`<polygon class="f-${f.t} roof" points="${T.map(q=>q.map(n).join(',')).join(' ')}"/>`}}
+
+ const pri=p=>p.id===S.destino||p.id===S.origen?0:evp[p.id]?1:R&&R.ids.includes(p.id)?2:3,bxs=[],show=new Set();
+ for(const p of[...D.puntos].sort((a,b)=>pri(a)-pri(b))){const[x,y]=X(p.lat,p.lng),w=(p.corto||p.nombre).length*6.4*r,b={x1:x-w/2,x2:x+w/2,y1:y+15*r,y2:y+31*r};
+  if(!bxs.some(q=>q.x1<b.x2&&q.x2>b.x1&&q.y1<b.y2&&q.y2>b.y1)&&!D.puntos.some(q=>{if(q===p)return;const[qx,qy]=X(q.lat,q.lng);return qx>b.x1-11*r&&qx<b.x2+11*r&&qy>b.y1-11*r&&qy<b.y2+11*r})){bxs.push(b);show.add(p.id)}}
+ sv.setAttribute('viewBox',`${v.x} ${v.y} ${v.w} ${v.h}`);
+
+ for(const c of D.caminos){const a=PT[c.de],b=PT[c.a];if(!a||!b)continue;const[x1,y1]=X(a.lat,a.lng),[x2,y2]=X(b.lat,b.lng);h+=`<line class="cam${c.esc?' esc':''}${c.rmp?' rmp':''}" x1="${n(x1)}" y1="${n(y1)}" x2="${n(x2)}" y2="${n(y2)}" stroke-width="${n((o.mini?2:3.4)*r)}"${c.esc?` stroke-dasharray="${n(.5*r)} ${n(5*r)}"`:''}/>`}
+ if(!o.mini)for(const q of D.rampas||[]){const[x,y]=X(q.lat,q.lng);h+=`<g class="rp" transform="translate(${n(x)} ${n(y)}) scale(${n(r*1.1)})"><circle r="11.5"/><circle class="hd" cx="-1" cy="-5.2" r="1.7"/><path d="M-1-2.6v5.4h4.6l1.9 4M-1 .2h3.6M-3.6 1.6a4.2 4.2 0 1 0 5.4 5.6"/></g>`}
+ if(S.ed&&!o.mini){for(const q of D.vias||[]){const[x,y]=X(q.lat,q.lng);h+=`<circle class="vd" cx="${n(x)}" cy="${n(y)}" r="${n(4.5*r)}" stroke-width="${n(1.5*r)}"/>`}
+  const s=PT[S.ed.sel];if(s){const[x,y]=X(s.lat,s.lng);h+=`<circle class="vs" cx="${n(x)}" cy="${n(y)}" r="${n(13*r)}" stroke-width="${n(3.5*r)}"/>`}}
+ if(R&&R.ids.length>1){const p=R.ids.map(i=>X(PT[i].lat,PT[i].lng).map(n).join(',')).join(' ');h+=`<polyline class="rtc" points="${p}" stroke-width="${n((o.mini?6:11)*r)}"/><polyline class="rtg" points="${p}" stroke-width="${n((o.mini?12:28)*r)}"/><polyline class="rto" points="${p}" stroke-width="${n((o.mini?8:15)*r)}"/><polyline class="rtc" points="${p}" stroke-width="${n((o.mini?6:12)*r)}"/><polyline class="rt" points="${p}" stroke-width="${n((o.mini?4:8.5)*r)}"/>${o.mini?'':`<polyline class="rtf" points="${p}" stroke-width="${n(3*r)}" stroke-dasharray="${n(5*r)} ${n(11*r)}"/>`}`}
+ for(const p of D.puntos){const[x,y]=X(p.lat,p.lng),solo=o.solo&&!o.solo.includes(p.id),off=solo||(o.filtro&&o.filtro!=='todo'&&!(o.filtro==='eventos'?evp[p.id]:p.tipo===o.filtro));
+  h+=`<g class="pt t-${esc(p.tipo)}${off?' off':''}" data-id="${esc(p.id)}"><circle class="hit" cx="${n(x)}" cy="${n(y)}" r="${n(22*r)}"/>`+(evp[p.id]?`<circle class="ring ${evp[p.id]}" cx="${n(x)}" cy="${n(y)}" r="${n((o.mini?9:17)*r)}" stroke-width="${n((o.mini?2:3)*r)}"/>`:'')+`<circle class="dot" cx="${n(x)}" cy="${n(y)}" r="${n((o.mini?5:12)*r)}" stroke-width="${n(1.5*r)}"/>`+(o.mini?'':solo?`<text class="sig" x="${n(x)}" y="${n(y+3.6*r)}" font-size="${n(10.5*r)}">${esc(p.sig||'')}</text>`:`<text class="sig" x="${n(x)}" y="${n(y+3.6*r)}" font-size="${n(10.5*r)}">${esc(p.sig||'')}</text>${show.has(p.id)?`<text class="lab" x="${n(x)}" y="${n(y+27*r)}" font-size="${n(11.5*r)}" stroke-width="${n(3.5*r)}">${esc(p.corto||p.nombre)}</text>`:''}`)+'</g>'}
+ if(o.heading!=null){const L=34*r,a=rad(o.heading+NROT-26),b=rad(o.heading+NROT+26);h+=`<path class="cone" d="M${n(ux)} ${n(uy)}L${n(ux+L*Math.sin(a))} ${n(uy-L*Math.cos(a))}A${n(L)} ${n(L)} 0 0 1 ${n(ux+L*Math.sin(b))} ${n(uy-L*Math.cos(b))}Z"/>`}
+ h+=o.mini?`<circle class="yo m" cx="${n(ux)}" cy="${n(uy)}" r="${n(6*r)}" stroke-width="${n(2*r)}"/>`:`<circle class="yo-c" cx="${n(ux)}" cy="${n(uy)}" r="${n(18*r)}" stroke-width="${n(6.5*r)}"/><circle class="yo" cx="${n(ux)}" cy="${n(uy)}" r="${n(18*r)}" stroke-width="${n(4*r)}"/><text class="yo-t" x="${n(ux)}" y="${n(uy+42*r)}" font-size="${n(10.5*r)}" stroke-width="${n(3.5*r)}">ESTÁS AQUÍ</text>`;
+ sv.innerHTML=h}
+const dibuja=()=>{const sv=$('#map');if(!sv)return;if(is3()){m3sync();return}if(!V)V=vista(sv,Object.keys(PT).filter(i=>!PT[i].fuera),10);mapa(sv,V,{filtro:S.filtro})};
+function zoom(f,px,py){const sv=$('#map');if(!sv||!V)return;const cw=sv.clientWidth,ch=sv.clientHeight,nw=Math.min(Math.max(V.w*f,45),(PR.w+PR.h+80)*2),g=nw/V.w,mx=V.x+(px??cw/2)/cw*V.w,my=V.y+(py??ch/2)/ch*V.h;V.x=mx-(mx-V.x)*g;V.y=my-(my-V.y)*g;V.w*=g;V.h*=g;dibuja()}
+function gestos(sv){const P=new Map();let mov=0,d0=0;
+ sv.addEventListener('pointerdown',e=>{try{sv.setPointerCapture(e.pointerId)}catch(x){}P.set(e.pointerId,[e.clientX,e.clientY]);if(P.size===1)mov=0;if(P.size===2){const[a,b]=[...P.values()];d0=Math.hypot(a[0]-b[0],a[1]-b[1])}});
+ sv.addEventListener('pointermove',e=>{const o=P.get(e.pointerId);if(!o||!V)return;const dx=e.clientX-o[0],dy=e.clientY-o[1],k=V.w/sv.clientWidth;P.set(e.pointerId,[e.clientX,e.clientY]);
+  if(P.size===1){mov+=Math.abs(dx)+Math.abs(dy);V.x-=dx*k;V.y-=dy*k;sv.setAttribute('viewBox',`${V.x} ${V.y} ${V.w} ${V.h}`)}
+  else if(P.size===2){mov=99;const[a,b]=[...P.values()],d=Math.hypot(a[0]-b[0],a[1]-b[1]),q=sv.getBoundingClientRect();if(d0&&d>0){zoom(d0/d,(a[0]+b[0])/2-q.left,(a[1]+b[1])/2-q.top);d0=d}}});
+ const up=e=>P.delete(e.pointerId);sv.addEventListener('pointerup',up);sv.addEventListener('pointercancel',up);
+ sv.addEventListener('click',e=>{if(mov>=8)return;if(S.ed){edClick(e);return}const g=document.elementFromPoint(e.clientX,e.clientY)?.closest?.('.pt');if(g)punto(g.dataset.id)});
+ sv.addEventListener('wheel',e=>{e.preventDefault();const q=sv.getBoundingClientRect();zoom(e.deltaY>0?1.15:.87,e.clientX-q.left,e.clientY-q.top)},{passive:false})}
+
+const VIEWS={
+eventos(){const t=Date.now(),g={live:[],soon:[],next:[],fin:[]};for(const e of EVS()){const s=est(e,t);g[s.k]?.push({e,s})}
+ g.live.sort((a,b)=>new Date(a.e.fin)-new Date(b.e.fin));g.soon.sort((a,b)=>new Date(a.e.fin)-new Date(b.e.fin));g.next.sort((a,b)=>new Date(a.e.inicio)-new Date(b.e.inicio));g.fin.sort((a,b)=>new Date(b.e.fin)-new Date(a.e.fin));
+ const N={live:'En curso',soon:'Por terminar',next:'Próximos',fin:'Pasados'},V0={fin:'Aún no hay eventos pasados.',live:'No hay eventos en curso en este momento.',soon:'Ningún evento termina en los próximos 30 minutos.',next:'No hay eventos próximos registrados.'},L=g[S.tab],ya=g.live.length+g.soon.length,tip=!store.get('.t'),inst=!store.get('.i')&&!window.matchMedia('(display-mode: standalone)').matches&&!navigator.standalone&&(S.inst||/iphone|ipad|ipod/i.test(navigator.userAgent));
+ return`<section class="view"><div class="hero"><p class="eb">Ahora en la UCB</p><h2>${ya?ya+(ya===1?' evento sucede ahora':' eventos suceden ahora'):'No hay eventos en este momento'}</h2><p class="muted">Toca uno y te guiamos desde ${esc(PT[S.origen].nombre)}.</p></div>${AGI?`<p class="src">Agenda Universitaria UCB · actualizada ${esc(AGI)}</p>`:''}${inst?`<div class="tip"><p><b>Instala Ubicato en tu celular.</b> Se abre como app, sin navegador, y funciona sin internet.</p><div class="row"><button class="btn sm" data-act="instalar">Instalar app</button><button class="btn sec sm" data-act="instOff">Ahora no</button></div></div>`:''}${tip?`<div class="tip"><p><b>Partimos de ${esc(PT[S.origen].nombre)}.</b> Si estás en otro lugar, cámbialo o usa tu GPS.</p><div class="row"><button class="btn sm" data-act="origen">Cambiar lugar</button><button class="btn sec sm" data-act="tipOff">Entendido</button></div></div>`:''}<div class="seg" role="group" aria-label="Estado de los eventos">${Object.keys(N).map(k=>`<button class="s-${k}" data-act="tab" data-t="${k}" aria-pressed="${S.tab===k}"><b>${g[k].length}</b>${N[k]}</button>`).join('')}</div><div class="list">${L.length?L.map(({e,s})=>{const p=PT[e.punto],r=p&&ruta(org(),e.punto,S.acc),mn=r&&r.ids.length>1?Math.max(1,Math.ceil(r.min)):0,u=s.k==='soon'?`Quedan ${dur(new Date(e.fin)-t)}${mn?' · llegas en '+mn+' min':''}`:s.k==='live'&&mn?`Llegas en ${mn} min`:'';return`<article class="ev s-${s.k}"><div class="ev-h"><span class="pill">${s.pill}</span><span>${s.txt}</span></div><div class="ev-t"><div class="bd"><b>${new Date(e.inicio).getDate()}</b><span>${new Date(e.inicio).toLocaleDateString('es-BO',{month:'short'}).replace('.','')}</span></div><div><h3>${esc(e.nombre)}</h3><p class="ev-l">${esc(e.ag&&e.lugar?e.lugar:p?p.nombre:'Lugar por definir')}${!e.ag&&p?.piso?', piso '+esc(p.piso):''} · ${cuando(e)}</p></div></div>${e.desc?`<p class="ev-d">${esc(e.desc)}</p>`:''}${u?`<p class="ev-u">${u}</p>`:''}${!p||s.k==='fin'?'':r&&r.ids.length<2?'<p class="ok">Estás en el lugar de este evento.</p>':`<div class="acts"><button class="btn" data-act="ir" data-id="${esc(e.punto)}" data-ev="${esc(e.id)}">Cómo llegar <span>${r?fm(r):'sin ruta accesible'}</span></button> <button class="btn sec sm" data-act="vermapa" data-id="${esc(e.punto)}" data-ev="${esc(e.id)}">Ver en mapa</button><button class="btn sec sm" data-act="share" data-id="${esc(e.id)}" aria-label="Compartir ${esc(e.nombre)}">Compartir</button></div>`}</article>`}).join(''):`<p class="empty">${V0[S.tab]}</p>`}</div><div class="tip"><p><b>¿Te sirvió Ubicato?</b> Pásaselo a tu curso: es gratis y no hay que instalar nada.</p><div class="row"><button class="btn sm" data-act="shareApp">Compartir Ubicato</button></div></div></section>`},
+mapa(){const F=[['todo','Todo'],['eventos','Con eventos ahora'],['servicio','Servicios'],['bloque','Bloques'],['espacio','Espacios'],['entrada','Entradas']];
+ return`<section class="view map${is3()?' d3':''}">${S.ed?edBar():`<div class="chips" role="group" aria-label="Filtrar puntos"><button data-act="buscar">Buscar aula u oficina</button>${F.map(([k,n])=>`<button data-act="filtro" data-f="${k}" aria-pressed="${S.filtro===k}">${n}</button>`).join('')}</div>`}${S.ed?'':`<div class="vt" role="group" aria-label="Modo del mapa"><button data-act="v3" data-m="0" aria-pressed="${!S.v3}">2D</button><button data-act="v3" data-m="1" aria-pressed="${!!S.v3}">3D</button><button data-act="edOn" aria-label="Editar el mapa">✎</button></div>`}<svg id="map" class="map" role="img" aria-label="Mapa del campus con puntos de interés"></svg><div id="m3dH"></div><div class="zoom"><button data-act="zin" aria-label="Acercar">+</button><button data-act="zout" aria-label="Alejar">−</button><button data-act="zfit" aria-label="Ver todo el campus">⤢</button></div><p class="leg"><span><i class="l1"></i>evento en curso</span><span><i class="l2"></i>por terminar</span><span><i class="l3"></i>gradas</span><span><i class="l4"></i>paso accesible</span><span><i class="l5"></i>tu ruta</span><span>Toca un punto para ver qué hay.</span></p></section>`},
+ruta(){const opt=s=>D.puntos.map(p=>`<option value="${esc(p.id)}"${p.id===s?' selected':''}>${esc(p.nombre)}</option>`).join('');let b;
+ if(!S.destino)b='<p class="empty">Elige un destino aquí o toca Cómo llegar en un evento.</p>';
+ else if(!R)b='<p class="empty warn">No hay ruta sin gradas entre estos dos puntos. Desmarca Evitar escaleras o pide apoyo en la entrada.</p>';
+ else if(R.ids.length<2)b='<p class="empty ok">Ya estás en este lugar.</p>';
+ else b=`<div class="sum"><b>${Math.round(R.m)} m</b><b>${Math.max(1,Math.ceil(R.min))} min</b><small>ruta más rápida, a pie${R.tramos.some(t=>t.esc)?', con gradas':R.tramos.some(t=>t.asc)?', con ascensor':''}</small></div><svg id="rmap" class="map" role="img" aria-label="Ruta en el mapa"></svg><ol class="steps">${R.legs.map(t=>{const a=PT[t.de],d=PT[t.a],dn=t.ref?`<b>${esc(t.ref.nombre)}</b>`:`<b>${esc(d.nombre)}</b>${d.piso?' (piso '+esc(d.piso)+')':''}`;return`<li><div>${t.asc?'Toma el ascensor hasta '+dn:t.esc?'Usa las gradas hasta '+dn:t.rmp?'Usa la rampa hasta '+dn:'Camina hacia el '+RUMBO[Math.round(brg(a,d)/45)%8]+(t.ref?', pasando junto a ':' hasta ')+dn}<small>${Math.round(t.m)} m · ${Math.max(1,Math.round(t.min))} min</small></div></li>`}).join('')}${S.dp?.piso?`<li><div>Entra y sube ${S.dp.piso} piso${S.dp.piso>1?'s':''} por ${NIV[S.destino]?.asc?'el ascensor o las gradas':'las gradas'} hasta <b>${esc(nomN(S.destino,S.dp.piso))}</b><small>unos ${S.dp.piso*20} s</small></div></li>`:''}<li class="fin"><div>Llegaste a <b>${esc(S.dp?.lugar||PT[S.destino].nombre)}</b></div></li></ol><div class="row"><button class="btn" data-act="go" data-v="camara">Guiarme con la cámara</button><button class="btn sec" data-act="go" data-v="mapa">Ver en el mapa</button></div>`;
+ return`<section class="view"><div class="srch"><label for="q">Busca un aula, oficina o lugar</label><input id="q" type="search" autocomplete="off" enterkeyhint="search" placeholder="D17, Kardex, Cafetería, Paraninfo…"><div class="pick" id="qr"></div></div><form class="od" id="fOD"><label for="selO">Desde</label><select id="selO">${opt(S.origen)}</select><label for="selD">Hasta</label><select id="selD"><option value="">Elige un destino</option>${opt(S.destino)}</select><label class="swt" for="acc"><input type="checkbox" id="acc"${S.acc?' checked':''}>Evitar escaleras</label></form>${b}</section>`},
+camara(){return`<section class="view ar" id="ar"><video id="cam" playsinline muted></video><div class="sim"></div><div class="strip" id="strip"></div><button class="ar-x" data-act="go" data-v="mapa" aria-label="Salir de la cámara">✕</button><div class="hud"><p id="arK"></p><h2 id="arTo"></h2><p id="arInfo"></p><span class="turn" id="arTurn" hidden></span></div><div id="labs"></div><div class="edge l" id="edgeL" hidden><b>‹</b></div><div class="edge r" id="edgeR" hidden><b>‹</b></div><div class="arrow" id="arrow"><svg viewBox="0 0 160 160" aria-hidden="true"><circle class="rg2" cx="80" cy="80" r="22"/><circle class="rg" cx="80" cy="80" r="22"/><path class="ch c1" d="M80 52 106 76 96 86 80 70 64 86 54 76z"/><path class="ch c2" d="M80 28 106 52 96 62 80 46 64 62 54 52z"/><path class="ch c3" d="M80 4 106 28 96 38 80 22 64 38 54 28z"/></svg></div><svg id="mini" class="map mini" role="img" aria-label="Minimapa" data-act="miniBig"></svg><p class="ar-hint" id="arHint"></p><div class="ardest" id="arDest" role="list" aria-label="Elige a dónde ir"></div><div class="ar-bar"><button class="btn" data-act="arOn" id="arOnB">Activar cámara</button><button class="btn" data-act="calib" id="calB" hidden>Calibrar</button><button class="btn sec" data-act="arNext" id="arNx"></button></div></section>`},
+horario(){const L=hor().slice().sort((a,b)=>a.dia-b.dia||a.hora.localeCompare(b.hora)),p=proxC(),hoy=new Date().getDay(),nb=id=>PT[id]?(PT[id].corto||PT[id].nombre):'?';let top;
+ if(p){const dd=Math.round((new Date(p.ini).setHours(0,0,0,0)-new Date().setHours(0,0,0,0))/864e5);
+  top=`<div class="hero"><p class="eb">Tu próxima clase · ${dd===0?'hoy':dd===1?'mañana':'el '+DIA[p.ini.getDay()].toLowerCase()} ${fH.format(p.ini)}</p><h2>Sal a las ${fH.format(p.sal)}</h2><p class="muted">${esc(p.c.materia)} · Aula ${esc(p.c.aula)} · ${esc(nb(p.c.punto))}, ${nomN(p.c.punto,p.c.piso)}. Son ${p.min} min de camino desde ${esc(nb(S.origen))}, más 5 de margen.</p></div><div class="row"><button class="btn" data-act="irc" data-id="${p.c.id}">Llévame</button><button class="btn sec" data-act="ics">Recordatorio en mi calendario</button></div>`}
+ else top=`<div class="hero"><p class="eb">Mi horario</p><h2>Llega a tiempo a clase</h2><p class="muted">Agrega tus clases y te decimos a qué hora salir desde donde estés.</p></div>`;
+ return`<section class="view">${top}<form class="tip" id="fCl"><label for="clM">Materia</label><input id="clM" required maxlength="60" autocomplete="off" placeholder="ECO-132 Contabilidad"><div class="row"><select id="clD" aria-label="Día">${[1,2,3,4,5,6].map(d=>`<option value="${d}"${d===hoy?' selected':''}>${DIA[d]}</option>`).join('')}</select><input id="clH" type="time" value="07:15" required aria-label="Hora de inicio"></div><label for="clA">Aula</label><input id="clA" required maxlength="8" autocomplete="off" autocapitalize="characters" placeholder="D5 (elige sola el bloque y el piso)"><div class="row"><select id="clB" aria-label="Bloque">${Object.keys(NIV).filter(k=>PT[k]&&k!=='capilla').map(k=>`<option value="${k}">${esc(nb(k))}</option>`).join('')}</select><select id="clP" aria-label="Piso"></select></div><button class="btn" type="submit">Guardar clase</button></form>${L.length?`<ul class="adm-l">${L.map(c=>`<li><div><b>${esc(c.materia)}</b><small>${DIA[c.dia]} ${esc(c.hora)} · Aula ${esc(c.aula)} · ${esc(nb(c.punto))}, ${nomN(c.punto,c.piso)}</small></div><span class="row2"><button class="btn sec sm" data-act="irc" data-id="${c.id}">Ir</button><button class="btn sec sm" data-act="clDel" data-id="${c.id}">Quitar</button></span></li>`).join('')}</ul>`:`<button class="btn sec" data-act="clEj">Cargar un horario de ejemplo</button>`}<p class="muted">Tu horario se guarda solo en este celular.</p></section>`},
+ajustes(){const opt=D.puntos.map(p=>`<option value="${esc(p.id)}">${esc(p.nombre)}</option>`).join(''),base=location.href.split('#')[0],op=k=>S.adm===k?' open':'';
+ return`<section class="view adm"><div><h2>Administrar datos</h2><p class="muted">Los cambios se guardan solo en este dispositivo. Para publicarlos a todos, copia los datos y súbelos como data.json junto a la app.</p></div>
+<details data-k="cal"${op('cal')}><summary>Ubicar puntos</summary><form id="fCal"><label for="calP">Punto</label><select id="calP">${opt}</select><label for="calLL">Coordenadas (latitud, longitud)</label><input id="calLL" inputmode="text" autocomplete="off" autocapitalize="none" placeholder="-16.5229, -68.1121"><p class="muted">En Google Maps, mantén presionado el lugar y copia las coordenadas. O párate en el punto y usa tu GPS.</p><div class="row"><button class="btn" type="submit">Guardar coordenadas</button><button class="btn sec" type="button" data-act="calGps">Usar mi GPS aquí</button></div></form></details>
+<details data-k="ev"${op('ev')}><summary>Eventos (${D.eventos.length})</summary><ul class="adm-l">${D.eventos.map(e=>`<li><div><b>${esc(e.nombre)}</b><small>${esc(PT[e.punto]?.nombre||'?')} · ${cuando(e)}</small></div><button class="btn sec sm" data-act="evDel" data-id="${esc(e.id)}">Quitar</button></li>`).join('')}</ul><form id="fEv"><label for="evN">Nombre del evento</label><input id="evN" required maxlength="80" autocomplete="off"><label for="evP">Lugar</label><select id="evP">${opt}</select><label for="evI">Empieza</label><input id="evI" type="datetime-local" required><label for="evF">Termina</label><input id="evF" type="datetime-local" required><label for="evD">Descripción (opcional)</label><input id="evD" maxlength="140" autocomplete="off"><button class="btn" type="submit">Agregar evento</button></form></details>
+<details data-k="qr"${op('qr')}><summary>Carteles QR</summary><p class="muted">Imprime un QR para pegar en cada bloque. Quien lo escanea abre Ubicato ya ubicado en ese punto, sin depender del GPS.</p><label for="qrP">Punto</label><select id="qrP">${opt}</select><label for="qrT">Al escanear</label><select id="qrT"><option value="desde">Marcar que estoy en este punto</option><option value="ir">Abrir la ruta hacia este punto</option></select><button class="btn" data-act="qrGen">Crear cartel</button></details>
+<details data-k="json"${op('json')}><summary>Copiar o cargar datos</summary><label for="json">Datos en formato JSON</label><textarea id="json" spellcheck="false" autocapitalize="none" placeholder="Pega aquí los datos para cargarlos"></textarea><div class="row"><button class="btn" data-act="jsonCopy">Copiar datos actuales</button><button class="btn sec" data-act="jsonLoad">Cargar lo pegado</button></div><div class="row"><button class="btn sec" data-act="reset">Restaurar ejemplo</button>${D.ejemplo?'<button class="btn sec" data-act="noDemo">Quitar aviso de ejemplo</button>':''}</div></details></section>`}};
+
+const POST={
+mapa(){const sv=$('#map');gestos(sv);if(S.v3&&!S.ed&&!M3)m3load();if(is3()){$('#m3dH').appendChild(M3D.el);M3D.start()}dibuja()},
+horario(){clNiv()},
+ruta(){const sv=$('#rmap');if(sv&&R)mapa(sv,vista(sv,R.ids,22),{solo:R.ids})},
+camara(){const ar=$('#ar');let last=null;
+ ar.addEventListener('pointerdown',e=>{if(!e.target.closest('button,.ardest'))last=e.clientX});
+ ar.addEventListener('pointermove',e=>{if(last==null||S.compOK)return;S.heading=(S.heading-(e.clientX-last)*.35+360)%360;last=e.clientX;S.arDirty=true});
+ ['pointerup','pointercancel','pointerleave'].forEach(t=>ar.addEventListener(t,()=>last=null));
+ if(!S.compOK&&R?.ids[1])S.heading=(brg(yo(),PT[R.ids[1]])+332)%360;
+ arHud();S.arDirty=true;requestAnimationFrame(arFrame)}};
+
+function render(force){
+ $('#hereN').textContent=(S.modo==='gps'&&S.gpsOK?(PT[S.origen].corto||PT[S.origen].nombre)+' · GPS':PT[S.origen].nombre);$('#demo').hidden=!(D.ejemplo&&!AG.length);
+ document.querySelectorAll('.tabs button').forEach(b=>b.setAttribute('aria-current',b.dataset.v===S.view?'page':'false'));
+ if(!force&&S.view==='camara'&&$('#ar')){arHud();S.arDirty=true;return}
+ if(!force&&S.view==='mapa'&&$('#map')){dibuja();return}
+ if(S.view!=='camara')camOff();if(S.view!=='mapa'&&M3===2)M3D.stop();
+ const m=$('#main'),st=m.firstElementChild?.scrollTop||0;m.innerHTML=VIEWS[S.view]();if(!force&&m.firstElementChild)m.firstElementChild.scrollTop=st;POST[S.view]?.()}
+function go(v){if(!VIEWS[v])return;S.view=v;try{if(location.hash!=='#'+v)location.hash=v}catch(e){}render(true)}
+function ruteo(){const h=location.hash.slice(1);let m;
+ if(m=h.match(/^desde-([A-Za-z0-9]+)$/)){if(PT[m[1]]){S.origen=m[1];S.modo='manual';calc();toast('Estás en '+PT[m[1]].nombre)}S.view='eventos'}
+ else if(m=h.match(/^ir-([A-Za-z0-9]+)$/)){if(PT[m[1]])dest(m[1]);S.view='ruta'}
+ else if(VIEWS[h]){if(h===S.view&&$('#main').firstElementChild)return;S.view=h}
+ render(true)}
+function origen(id,modo){S.origen=id;S.modo=modo;store.set('.p',{o:id,a:S.acc});calc();cierra();render(S.view!=='camara')}
+function guarda(){store.set('.d',D);index();render(true)}
+
+let tt;function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('on'),4200)}
+function hoja(h){const s=$('#sheet');s.innerHTML=h;s.hidden=false;$('#scrim').hidden=false;s.scrollTop=0;s.focus()}
+function cierra(){$('#sheet').hidden=true;$('#scrim').hidden=true}
+const cab=(k,t)=>`<div class="sh-h"><div><p class="eb">${k}</p><h2>${t}</h2></div><button class="ico" data-act="cerrar" aria-label="Cerrar">×</button></div>`;
+function punto(id){const p=PT[id];if(!p)return;const t=Date.now(),evs=EVS().map(e=>({e,s:est(e,t)})).filter(x=>x.e.punto===id&&x.s.k!=='fin'),ab=abierto(p),r=ruta(org(),id,S.acc),nv=NIV[id];
+ hoja(cab(esc(TIPO[p.tipo]||'Punto')+(p.piso?' · piso '+esc(p.piso):''),esc(p.nombre))+(ab?`<p class="${ab.ok?'ok':'no'}">${ab.txt}</p>`:'')+(p.info?`<p>${esc(p.info)}</p>`:'')+pisosHtml(id)+(evs.length?`<ul class="mini-ev">${evs.map(({e,s})=>`<li class="s-${s.k}"><b>${esc(e.nombre)}</b><small>${s.pill} · ${s.txt} · ${cuando(e)}</small></li>`).join('')}</ul>`:'<p class="muted">Sin eventos programados en este punto.</p>')+(id===S.origen?'<p class="muted">Este es tu punto de partida.</p>':`<div class="row"><button class="btn" data-act="ir" data-id="${esc(id)}">Cómo llegar <span>${r?fm(r):'sin ruta accesible'}</span></button><button class="btn sec" data-act="aqui" data-id="${esc(id)}">Estoy aquí</button></div>`)+(nv&&nv.n.length>1&&PT2B[id]?`<button class="btn sec" data-act="pisos" data-id="${esc(id)}">Ver los pisos en 3D</button>`:''))}
+
+function llegada(id){const p=PT[id];if(!p)return;const evs=EVS().map(e=>({e,s:est(e)})).filter(x=>x.e.punto===id&&x.s.k!=='fin');
+ hoja(cab('Destino alcanzado','¡Llegaste a '+esc(p.nombre)+'!')+(evs.length?`<ul class="mini-ev">${evs.map(({e,s})=>`<li class="s-${s.k}"><b>${esc(e.nombre)}</b><small>${s.pill} · ${s.txt}</small></li>`).join('')}</ul>`:'<p class="muted">No hay eventos programados aquí por ahora.</p>')+`<div class="row"><button class="btn" data-act="cerrar">Listo</button>${evs[0]?`<button class="btn sec" data-act="share" data-id="${esc(evs[0].e.id)}">Compartir evento</button>`:''}</div>`)}
+function gpsOn(){if(!navigator.geolocation){toast('Este dispositivo no entrega ubicación. Elige tu punto de partida.');S.modo='manual';return}if(S.watch!=null)return;
+ try{S.watch=navigator.geolocation.watchPosition(p=>{S.gps={lat:p.coords.latitude,lng:p.coords.longitude};const d=hav(S.gps,D.centro)<D.radio;if(d!==S.gpsOK||!S.gpsVisto){S.gpsVisto=true;S.gpsOK=d;if(!d&&S.modo==='gps'&&!S.auto)toast('Tu GPS te ubica fuera del campus. Elige tu punto de partida.');if(d&&S.auto)toast('Te ubicamos en el campus por GPS.');S.auto=false}
+   let ch=false;if(d&&S.modo==='gps'){const c=cerca(S.gps),nd=nodoCerca(S.gps);if(c!==S.origen||nd!==S.nodo){S.origen=c;S.nodo=nd;calc();ch=c!==S.origen||true}if(S.destino&&S.lleg!==S.destino&&hav(S.gps,PT[S.destino])<12){S.lleg=S.destino;llegada(S.destino)}}S.arDirty=true;
+   if(S.view==='mapa')dibuja();else if(S.view==='camara'||(ch&&S.view!=='ajustes'))render();else $('#hereN').textContent=(S.modo==='gps'&&S.gpsOK?(PT[S.origen].corto||PT[S.origen].nombre)+' · GPS':PT[S.origen].nombre)},
+  ()=>{if(S.modo==='gps'&&!S.auto)toast('No se pudo leer el GPS. Elige tu punto de partida.');S.auto=false;S.modo='manual';gpsOff()},{enableHighAccuracy:true,maximumAge:4000,timeout:15000})}catch(e){S.modo='manual'}}
+function gpsOff(){if(S.watch!=null){try{navigator.geolocation.clearWatch(S.watch)}catch(e){}S.watch=null}}
+
+/* Vista de cámara: flecha y etiquetas colocadas con rumbo (brújula) y posición; sin sensores queda en simulación arrastrable */
+function onOri(e){let h=null;
+ if(e.webkitCompassHeading!=null)h=e.webkitCompassHeading;
+ else if(e.absolute&&e.alpha!=null&&e.beta!=null&&e.gamma!=null){const r=Math.PI/180,a=e.alpha*r,b=e.beta*r,g=e.gamma*r,cA=Math.cos(a),sA=Math.sin(a),cB=Math.cos(b),sB=Math.sin(b),cG=Math.cos(g),sG=Math.sin(g);h=(Math.atan2(-cA*sG-sA*sB*cG,-sA*sG+cA*sB*cG)/r+360)%360}
+ if(h==null||isNaN(h))return;
+ if(!S.compOK){S.compOK=true;S.raw=h;arHud()}
+ S.raw=(S.raw+(((h-S.raw+540)%360)-180)*.25+360)%360;S.heading=(S.raw+S.off+360)%360;S.arDirty=true}
+function camOff(){if(S.stream){S.stream.getTracks().forEach(t=>t.stop());S.stream=null}removeEventListener('deviceorientationabsolute',onOri);removeEventListener('deviceorientation',onOri);S.compOK=false}
+function arDest(){const el=$('#arDest');if(!el)return;const o=org(),k=o+'|'+S.acc+'|'+S.destino+'|'+Math.floor(Date.now()/6e4);if(el.dataset.k===k)return;el.dataset.k=k;
+ const evp=evAhora(),L=D.puntos.filter(p=>p.tipo!=='paso'&&p.id!==o&&p.id!==S.origen).map(p=>({p,r:ruta(o,p.id,S.acc),ev:evp[p.id]})).filter(x=>x.r).sort((a,b)=>(a.p.id===S.destino?-1:0)-(b.p.id===S.destino?-1:0)||(b.ev?1:0)-(a.ev?1:0)||a.r.min-b.r.min);
+ el.innerHTML=L.map(({p,r,ev},i)=>`<button role="listitem" data-act="arGo" data-id="${esc(p.id)}"${p.id===S.destino?' aria-current="true"':''}><i>${esc(p.sig||'')}</i><span>${ev?`<em class="${ev}">${ev==='soon'?'por terminar':'evento ahora'}</em>`:!S.destino&&i===0?'<em>más cerca</em>':''}<b>${esc(p.corto||p.nombre)}</b><small>${Math.max(1,Math.ceil(r.min))} min · ${Math.round(r.m)} m</small></span></button>`).join('');if(S.destino)el.scrollLeft=0}
+function arHud(){if(!$('#ar'))return;arDest();const nx=R?.ids[1],nn=R?.ids.slice(1).find(i=>!PT[i].v),k=$('#arK'),to=$('#arTo'),inf=$('#arInfo'),b=$('#arNx');b.hidden=!nx;$('#calB').hidden=!(S.compOK&&nx);
+ if(!S.destino){k.textContent='Sin destino';to.textContent='¿A dónde vas?';inf.textContent='Estás cerca de '+(PT[S.origen].corto||PT[S.origen].nombre)+'. Desliza la lista y elige.'}
+ else if(!R){k.textContent='Destino: '+PT[S.destino].nombre;to.textContent='Sin ruta sin gradas';inf.textContent='Desmarca Evitar escaleras en Ruta.'}
+ else if(!nx){k.textContent='Llegaste';to.textContent=PT[S.destino].nombre;inf.textContent='Estás en el lugar del evento.'}
+ else{k.textContent='Destino: '+PT[S.destino].nombre;to.textContent='Hacia '+PT[nn].nombre;inf.textContent=fm(R)+' restantes';b.textContent='Llegué a '+(PT[nn].corto||PT[nn].nombre)}
+ const h=S.compOK?(nx?'Si la flecha no coincide, apunta al destino y toca Calibrar.':''):(S.stream?'Sin brújula: arrastra para girar la vista.':'Modo simulación: arrastra para girar la vista.'),H=$('#arHint');H.textContent=h;H.hidden=!h;$('#arOnB').hidden=!!S.stream||S.compOK}
+function arFrame(){if(S.view!=='camara'||!$('#ar'))return;
+ if(S.arDirty){S.arDirty=false;const p=yo(),H=S.heading,rel=b=>((b-H+540)%360)-180,nx=R?.ids[1]?PT[R.ids[1]]:null,ar=$('#arrow'),evp=evAhora(),[ux,uy]=PR.xy(p.lat,p.lng);
+  ar.hidden=!nx;const rr=nx?rel(brg(p,nx)):0,ok=nx&&Math.abs(rr)<14,tn=$('#arTurn');if(nx)ar.style.transform=`perspective(520px) rotateX(58deg) rotate(${rr.toFixed(1)}deg)`;ar.classList.toggle('ok',!!ok);tn.hidden=!nx;if(nx){tn.classList.toggle('ok',!!ok);tn.textContent=ok?'Sigue de frente':(rr>0?'Gira a la derecha ':'Gira a la izquierda ')+Math.round(Math.abs(rr))+'°'}$('#edgeL').hidden=!(nx&&rr<-40);$('#edgeR').hidden=!(nx&&rr>40);
+  $('#strip').innerHTML=CARD.map((c,i)=>{const r=rel(i*45);return Math.abs(r)<38?`<span style="left:${(50+r*1.44).toFixed(1)}%">${c}</span>`:''}).join('');
+  $('#labs').innerHTML=D.puntos.filter(q=>q.tipo!=='paso'&&q.id!==S.origen).map(q=>({q,d:hav(p,q),r:rel(brg(p,q))})).filter(x=>Math.abs(x.r)<32&&x.d>3).sort((a,b)=>a.d-b.d).slice(0,4).map((x,i)=>`<span class="lb${x.q.id===S.destino?' dest':''}" style="left:${Math.min(84,Math.max(16,50+x.r*1.44)).toFixed(1)}%;top:${186+i*38}px">${esc(x.q.corto||x.q.nombre)} · ${Math.round(x.d)} m${evp[x.q.id]?`<em class="${evp[x.q.id]}">${evp[x.q.id]==='soon'?'por terminar':'en curso'}</em>`:''}</span>`).join('');
+  mapa($('#mini'),{x:ux-55,y:uy-55,w:110,h:110},{mini:true,pos:p,heading:H})}
+ requestAnimationFrame(arFrame)}
+
+async function copia(txt,ok){try{await navigator.clipboard.writeText(txt);toast(ok)}catch(e){const t=$('#json');if(t){S.adm='json';t.closest('details').open=true;t.value=txt;t.focus();t.select();toast('Texto listo en el cuadro de datos: cópialo desde ahí.')}}}
+const A={
+irp:b=>{const id=b.dataset.id,i=+b.dataset.i;dest(id,{piso:i,lugar:PT[id].nombre+', '+nomN(id,i)});cierra();go('ruta')},
+irb:b=>{dest(b.dataset.id,{piso:+b.dataset.i||0,lugar:b.dataset.t});cierra();go('ruta')},
+irc:b=>{const c=hor().find(x=>String(x.id)===b.dataset.id);if(!c||!PT[c.punto])return;dest(c.punto,{piso:c.piso,lugar:'Aula '+c.aula+' · '+c.materia});go('ruta')},
+clDel:b=>{store.set('.h',hor().filter(x=>String(x.id)!==b.dataset.id));render(true)},
+clEj:()=>{store.set('.h',[['ECO-132 Contabilidad Nacional',1,'07:15',0,'D5'],['ADM-113 Administración I',1,'09:00',2,'D13'],['CPO-333 Política Exterior',2,'10:45',1,'D10'],['ECO-231 Macroeconomía',4,'09:00',0,'D5'],['ECO-329 Economía Laboral',4,'12:30',0,'D1'],['ECO-122 Microeconomía II',5,'17:45',0,'D5']].map(([materia,dia,hora,piso,aula],i)=>({id:Date.now()+i,materia,dia,hora,punto:'bloqueD',piso,aula})));render(true)},
+ics:()=>{const p=proxC();if(!p)return;const z=n=>String(n).padStart(2,'0'),f=d=>d.getFullYear()+z(d.getMonth()+1)+z(d.getDate())+'T'+z(d.getHours())+z(d.getMinutes())+'00',t=x=>String(x).replace(/([,;\\])/g,'\\$1'),c=p.c,
+ txt=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Ubicato//ES','CALSCALE:GREGORIAN','BEGIN:VEVENT','UID:'+c.id+'-'+f(p.ini)+'@ubicato','DTSTAMP:'+f(new Date()),'DTSTART:'+f(p.ini),'DTEND:'+f(new Date(+p.ini+90*6e4)),'RRULE:FREQ=WEEKLY','SUMMARY:'+t(c.materia+' · Aula '+c.aula),'LOCATION:'+t(PT[c.punto].nombre+', '+nomN(c.punto,c.piso)+', UCB La Paz'),'DESCRIPTION:'+t('Sal a las '+fH.format(p.sal)+' ('+p.min+' min de camino + 5 de margen). Ubicato'),'BEGIN:VALARM','ACTION:DISPLAY','DESCRIPTION:'+t('En 10 min sal hacia '+c.materia+' (Aula '+c.aula+')'),'TRIGGER:-PT'+(p.min+15)+'M','END:VALARM','END:VEVENT','END:VCALENDAR'].join('\r\n'),
+ a=document.createElement('a');a.href=URL.createObjectURL(new Blob([txt],{type:'text/calendar;charset=utf-8'}));a.download='ubicato-'+(norm(c.materia).split(' ')[0].replace(/[^a-z0-9-]/g,'')||'clase')+'.ics';document.body.appendChild(a);a.click();a.remove();toast('Recordatorio descargado: ábrelo para añadirlo a tu calendario.')},
+buscar:()=>{go('ruta');$('#q')?.focus()},
+pisos:b=>{cierra();S.pz=PT2B[b.dataset.id];S.v3=true;store.set('.v3',true);V=null;go('mapa')},
+shareApp:async()=>{const u=location.href.split('#')[0],t='Ubicato: los eventos de la UCB La Paz en vivo y la ruta más rápida para llegar, con flechas en la cámara.';try{if(navigator.share){await navigator.share({title:'Ubicato UCB',text:t,url:u});return}}catch(x){if(x&&x.name==='AbortError')return}window.open('https://wa.me/?text='+encodeURIComponent(t+' '+u),'_blank','noopener')},
+qrGen:async()=>{const p=PT[$('#qrP').value],t=$('#qrT').value,u=location.href.split('#')[0]+'#'+t+'-'+p.id;try{if(!window.qrcode)await js('lib/qrcode.js')}catch(e){return toast('No se pudo cargar el generador de QR.')}const q=qrcode(0,'M');q.addData(u);q.make();S.adm='qr';
+ hoja(`<div class="qr"><p class="eb">Ubicato · Campus UCB La Paz</p><h2>${t==='desde'?'Estás en '+esc(p.nombre):'Cómo llegar a '+esc(p.nombre)}</h2>${q.createSvgTag({cellSize:6,margin:12,scalable:true})}<p><b>Escanea y llega.</b> Eventos del campus en vivo, la ruta más rápida y flechas en tu cámara.</p><code>${esc(u)}</code><div class="row np"><button class="btn" data-act="print">Imprimir cartel</button><button class="btn sec" data-act="cerrar">Cerrar</button></div></div>`)},
+print:()=>window.print(),
+share:async b=>{const e=EVS().find(x=>x.id===b.dataset.id);if(!e)return;const p=PT[e.punto],u=location.href.split('#')[0]+'#ir-'+e.punto,t0=`${e.nombre} · ${p?p.nombre:''} · ${cuando(e)}.`;try{if(navigator.share){await navigator.share({title:e.nombre,text:t0+' Ruta en Ubicato:',url:u});return}}catch(x){if(x&&x.name==='AbortError')return}window.open('https://wa.me/?text='+encodeURIComponent(t0+' Cómo llegar: '+u),'_blank','noopener')},
+calib:()=>{const n=R?.ids[1];if(!S.compOK||!n)return toast('Activa la cámara y elige un destino primero.');S.off=(brg(yo(),PT[n])-S.raw+360)%360;S.heading=(S.raw+S.off)%360;store.set('.o',S.off);S.arDirty=true;toast('Dirección calibrada.')},
+instalar:async()=>{if(S.inst){S.inst.prompt();try{await S.inst.userChoice}catch(x){}S.inst=null;store.set('.i',1);render(true)}else hoja(cab('Instalar en iPhone','Agregar a inicio')+'<ol class="steps"><li>Abre esta página en <b>Safari</b>.</li><li>Toca el botón Compartir (el cuadrado con flecha).</li><li>Elige <b>Agregar a pantalla de inicio</b>.</li></ol><button class="btn" data-act="cerrar">Entendido</button>')},
+instOff:()=>{store.set('.i',1);render(true)},
+tipOff:()=>{store.set('.t',1);render(true)},
+go:b=>go(b.dataset.v),tab:b=>{S.tab=b.dataset.t;render(true)},cerrar:cierra,
+vermapa:b=>{dest(b.dataset.id,dpEv(b));V=null;go('mapa')},
+ir:b=>{dest(b.dataset.id,dpEv(b));cierra();go('ruta')},aqui:b=>{origen(b.dataset.id,'manual');if(S.destino===b.dataset.id)llegada(b.dataset.id)},
+origen:()=>hoja(cab('Punto de partida','¿Dónde estás?')+'<p class="muted">Elige el punto más cercano a ti.</p><button class="btn sec" data-act="gps">Usar mi GPS (al aire libre)</button><div class="pick">'+D.puntos.filter(p=>p.tipo!=='paso'||p.id===S.origen).map(p=>`<button data-act="aqui" data-id="${esc(p.id)}"${p.id===S.origen?' aria-current="true"':''}><i>${esc(p.sig||'')}</i>${esc(p.nombre)}</button>`).join('')+'</div>'),
+gps:()=>{S.modo='gps';S.gpsVisto=false;cierra();toast('Buscando tu ubicación…');gpsOn()},
+v3:b=>{S.v3=b.dataset.m==='1';store.set('.v3',S.v3);V=null;render(true)},
+edOn:()=>{S.ed={t:'camino',sel:null,h:[]};V=null;render(true);toast('Modo edición: arma los caminos junto a mí.')},
+edOff:()=>{S.ed=null;V=null;guarda()},
+edT:b=>{S.ed.t=b.dataset.t;S.ed.sel=null;render(true)},
+edUndo:()=>{const s=S.ed.h.pop();if(!s)return toast('Nada que deshacer.');edRestore(s);edCommit()},
+edCopy:()=>{const f=n=>+n.toFixed(6),o={puntos:D.puntos.map(p=>[p.id,f(p.lat),f(p.lng)]),vias:(D.vias||[]).map(v=>[v.id,f(v.lat),f(v.lng)]),caminos:D.caminos.map(c=>[c.de,c.a,c.esc?1:0,c.m||0,c.asc?1:0,c.rmp?1:0]),rampas:(D.rampas||[]).map(p=>[f(p.lat),f(p.lng)])};copia(JSON.stringify(o),'Cambios copiados. Pégalos en el chat con Claude.')},
+filtro:b=>{S.filtro=b.dataset.f;document.querySelectorAll('.chips button').forEach(c=>c.setAttribute('aria-pressed',c===b));dibuja()},
+zin:()=>is3()?M3D.zoom(.7):zoom(.7),zout:()=>is3()?M3D.zoom(1.4):zoom(1.4),zfit:()=>{if(is3())M3D.fit();else{V=null;dibuja()}},
+arOn:()=>{const DO=window.DeviceOrientationEvent,pO=DO?.requestPermission?DO.requestPermission().catch(()=>'no'):Promise.resolve(DO?'granted':'no'),pC=navigator.mediaDevices?.getUserMedia?navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'}},audio:false}).catch(()=>null):Promise.resolve(null);
+ Promise.all([pO,pC]).then(async([o,st])=>{const v=$('#cam');if(o==='granted'){addEventListener('deviceorientationabsolute',onOri);addEventListener('deviceorientation',onOri)}
+  if(st&&v&&S.view==='camara'){S.stream=st;v.srcObject=st;try{await v.play()}catch(e){}$('#ar').classList.add('cam-on')}else if(st)st.getTracks().forEach(t=>t.stop());
+  arHud();setTimeout(()=>{if(S.view!=='camara')return;if(!S.stream&&!S.compOK)toast('Aquí no hay acceso a cámara ni brújula. Sigue en simulación o abre la app publicada desde tu celular.');else if(!S.stream)toast('Sin permiso de cámara. La flecha funciona igual.');else if(!S.compOK)toast('Este equipo no tiene brújula: arrastra para girar.');arHud()},1500)})},
+miniBig:()=>{$('#mini').classList.toggle('big');S.arDirty=true},
+arGo:b=>{dest(b.dataset.id);if(!S.compOK&&R?.ids[1])S.heading=(brg(yo(),PT[R.ids[1]])+332)%360;arHud();S.arDirty=true;if(navigator.vibrate)navigator.vibrate(12)},
+arNext:()=>{if(!R?.ids[1])return;S.modo='manual';S.origen=R.ids.slice(1).find(i=>!PT[i].v);store.set('.p',{o:S.origen,a:S.acc});calc();const fin=R&&R.ids.length<2;if(!fin&&!S.compOK&&R?.ids[1])S.heading=(brg(yo(),PT[R.ids[1]])+332)%360;render();if(fin)llegada(S.destino)},
+calGps:()=>{if(!navigator.geolocation)return toast('Este dispositivo no entrega ubicación.');toast('Leyendo GPS…');navigator.geolocation.getCurrentPosition(p=>{const i=$('#calLL');if(i){i.value=p.coords.latitude.toFixed(6)+', '+p.coords.longitude.toFixed(6);toast('Coordenadas leídas (±'+Math.round(p.coords.accuracy)+' m). Revisa y guarda.')}},()=>toast('No se pudo leer el GPS. Pega las coordenadas desde Google Maps.'),{enableHighAccuracy:true,timeout:15000})},
+evDel:b=>{D.eventos=D.eventos.filter(e=>e.id!==b.dataset.id);S.adm='ev';guarda();toast('Evento quitado.')},
+qr:b=>copia(location.href.split('#')[0]+'#desde-'+b.dataset.id,'Enlace copiado.'),
+jsonCopy:()=>{const{centro,radio,...d}=D,t=JSON.stringify(d,null,1);$('#json').value=t;copia(t,'Datos copiados.')},
+jsonLoad:()=>{let d;try{d=JSON.parse($('#json').value)}catch(e){return toast('El texto no es un JSON válido. Revisa comas y llaves.')}if(!valido(d))return toast('Faltan puntos, caminos o eventos en los datos.');D=d;S.adm='json';guarda();toast('Datos cargados.')},
+reset:()=>{store.del('.d');D=ejemplo();S.destino=S.dp=null;index();render(true);toast('Datos de ejemplo restaurados.')},
+noDemo:()=>{D.ejemplo=false;S.adm='json';guarda()}};
+
+document.addEventListener('click',e=>{const b=e.target.closest('[data-act]');if(b){A[b.dataset.act]?.(b);return}if(e.target.id==='scrim')cierra()});
+document.addEventListener('change',e=>{const t=e.target;if(t.id==='selO')origen(t.value,'manual');else if(t.id==='selD'){dest(t.value);render(true)}else if(t.id==='clB'){clNiv()}else if(t.id==='acc'){S.acc=t.checked;store.set('.p',{o:S.origen,a:S.acc});calc();render(true)}});
+document.addEventListener('submit',e=>{e.preventDefault();const f=e.target.id;
+ if(f==='fCal'){const m=$('#calLL').value.match(/^\s*(-?\d+(?:\.\d+)?)\s*[,;\s]\s*(-?\d+(?:\.\d+)?)\s*$/),p=PT[$('#calP').value];if(!m||Math.abs(m[1])>90||Math.abs(m[2])>180)return toast('Escribe latitud y longitud separadas por coma, por ejemplo -16.5229, -68.1121');p.lat=+m[1];p.lng=+m[2];S.adm='cal';const id=p.id;guarda();$('#calP').value=id;toast('Guardado: '+p.nombre+'. Las distancias se recalcularon.')}
+ if(f==='fEv'){const i=new Date($('#evI').value),fi=new Date($('#evF').value);if(isNaN(i)||isNaN(fi)||fi<=i)return toast('La hora de término debe ser posterior a la de inicio.');D.eventos.push({id:'e'+Date.now().toString(36),nombre:$('#evN').value.trim(),punto:$('#evP').value,inicio:i.toISOString(),fin:fi.toISOString(),desc:$('#evD').value.trim()});S.adm='ev';guarda();toast('Evento agregado.')}});
+document.addEventListener('input',e=>{const t=e.target;
+ if(t.id==='q'){const L=busca(t.value);$('#qr').innerHTML=L.length?L.map(r=>`<button data-act="irb" data-id="${esc(r.id)}" data-i="${r.piso??''}" data-t="${esc(r.t)}"><i>${esc(PT[r.id].sig||'')}</i><span>${esc(r.t)}<small>${esc(PT[r.id].nombre)}${r.piso==null?'':' · '+nomN(r.id,r.piso)}</small></span></button>`).join(''):t.value.trim().length>1?'<p class="muted">Sin resultados. Prueba con el nombre del bloque.</p>':''}
+ else if(t.id==='clA'){const a=aula(t.value),b=$('#clB');if(a&&[...b.options].some(o=>o.value===a.id)){b.value=a.id;clNiv();$('#clP').value=a.piso}}});
+document.addEventListener('submit',e=>{if(e.target.id!=='fCl')return;const b=$('#clB').value;store.set('.h',[...hor(),{id:Date.now(),materia:$('#clM').value.trim(),dia:+$('#clD').value,hora:$('#clH').value,punto:b,piso:Math.min(NIV[b].n.length-1,Math.max(0,+$('#clP').value||0)),aula:$('#clA').value.trim().toUpperCase()}]);render(true);toast('Clase guardada.')});
+document.addEventListener('toggle',e=>{if(e.target.open&&e.target.dataset?.k)S.adm=e.target.dataset.k},true);
+document.addEventListener('keydown',e=>{if(e.key==='Escape')cierra();if(S.view==='camara'&&!S.compOK&&(e.key==='ArrowLeft'||e.key==='ArrowRight')){S.heading=(S.heading+(e.key==='ArrowLeft'?-8:8)+360)%360;S.arDirty=true}});
+addEventListener('hashchange',ruteo);
+addEventListener('beforeinstallprompt',e=>{e.preventDefault();S.inst=e;if(S.view==='eventos')render(true)});addEventListener('appinstalled',()=>{S.inst=null;store.set('.i',1)});
+if('serviceWorker' in navigator&&/^https:|^http:\/\/localhost/.test(location.protocol+'//'+location.host))navigator.serviceWorker.register('sw.js').catch(()=>{});
+addEventListener('resize',()=>{if(S.view==='mapa'){V=null;dibuja()}});
+setInterval(()=>{if(S.view==='eventos'&&$('#sheet').hidden)render();else if(S.view==='mapa')dibuja()},30000);
+
+const g=store.get('.d'),pf=store.get('.p'),po=store.get('.o');if(typeof po==='number')S.off=po;D=valido(g)?g:ejemplo();if(pf){S.origen=pf.o;S.acc=!!pf.a}index();ruteo();if(!/^#desde-/.test(location.hash)){S.modo='gps';S.auto=true;S.gpsVisto=false;gpsOn()}
+agenda(store.get('.ag'));if(AG.length)render(true);
+fetch('eventos.json',{cache:'no-store'}).then(r=>r.ok?r.json():null).then(d=>{if(!d||!Array.isArray(d.eventos))return;agenda(d);store.set('.ag',d);if(S.view==='eventos')render(true);else if(S.view==='mapa')dibuja()}).catch(()=>{});
+window.Ubicato={S,punto,ruta,busca,aula,agenda,go,get D(){return D},get R(){return R},get eventos(){return EVS()}};   // para depurar desde la consola
+if(!valido(g))fetch('data.json',{cache:'no-store'}).then(r=>r.ok?r.json():null).then(d=>{if(valido(d)){D=d;index();render(true)}}).catch(()=>{});
+})();
+</script>
+</body>
+</html>
